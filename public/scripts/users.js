@@ -2,7 +2,7 @@
 
 $(() => {
   $('#fetch-users').on('click', () => {
-    $.get('/api/users', function(user) {
+    $.get('/api/users/:id', function(user) {
       const $usersList = $('#user');
       console.log(user);
       // $usersList.empty();
