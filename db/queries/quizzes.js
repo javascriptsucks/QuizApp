@@ -18,7 +18,6 @@ const getQuizzesQuestionsById = (id = 4) => {
   `;
   const sqlParams = [id];
 
-
   return db.query(queryTemplate, sqlParams)
     .then((res) => {
       console.log(res.rows);
