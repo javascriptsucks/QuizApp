@@ -12,6 +12,7 @@ const userQueries = require('../db/queries/users');
 router.get('/', (req, res) => {
   userQueries.getUsers()
     .then(users => {
+      console.log(users);
       res.json({ users });
     })
     .catch(err => {
