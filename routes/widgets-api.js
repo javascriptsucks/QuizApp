@@ -11,7 +11,7 @@ const db = require('../db/connection');
 
 router.get('/', (req, res) => {
   const query = `SELECT * FROM widgets`;
-  console.log(query);
+  // console.log(query);
   db.query(query)
     .then(data => {
       const widgets = data.rows;

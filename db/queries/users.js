@@ -7,19 +7,20 @@ const getUsers = () => {
     });
 };
 
-const getUserByEmail = (email) => {
+const getUserById = (id = 1) => {
   const emailQuery = `
     SELECT *
     FROM users
-    WHERE users.email = $1
+    WHERE users.id = $1
   ;
   `;
-  const sqlParams = [email];
+  const sqlParams = [id];
   return db.query(emailQuery, sqlParams)
     .then((res) => {
       const user = res.rows[0];
+      console.log(`From query Fnc ${user}`);
       return user;
     });
 };
 
-module.exports = { getUsers, getUserByEmail };
+module.exports = { getUsers, getUserById };

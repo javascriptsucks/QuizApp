@@ -6,10 +6,25 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
+const userQueries = require('../db/queries/users');
 
 router.get('/', (req, res) => {
-  res.render('users');
+  console.log('users 🐷');
+  // const id = req.cookies.user_id;
+  userQueries.getUserById(
+    // default id = 1
+  )
+    .then((user) => {
+      console.log(user);
+      const templateVars = {user};
+      console.log(templateVars);
+      // res.json(user);
+      res.render('users',
+        templateVars
+      );
+    });
+
 });
 
 module.exports = router;
