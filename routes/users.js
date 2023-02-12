@@ -8,8 +8,16 @@
 const express = require('express');
 const router  = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/:user_id', (req, res) => {
   res.render('users');
+});
+
+router.post('/login', (req, res) => {
+  res.redirect('quizzes');
+});
+
+router.post('/logout', (req, res) => {
+  res.redirect('index');
 });
 
 module.exports = router;
