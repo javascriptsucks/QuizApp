@@ -3,4 +3,5 @@ VALUES
 (1, 'historical', 'Historical quiz about Canada', TRUE, 10),
 (2, 'historical', 'Historical quiz worldwide', TRUE, 10),
 (2, 'javascript', 'Quiz about vanilla javascript', TRUE, 10),
-(3, 'javascript', 'Quiz about vanilla javascript', TRUE, 10);
+(2, 'javascript', 'Quiz about vanilla javascript', TRUE, 10),
+(4, 'CSS', 'Quiz about vanilla CSS', TRUE, 10);

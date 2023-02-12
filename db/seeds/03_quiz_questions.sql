@@ -49,13 +49,82 @@ let total = sum(4, ...values);', '10'),
 (4, 'What will be the output of the following code snippet?
 <script type="text/javascript">a = 5 + "9"; document.write(a);</script>
 ', '59'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false'),
-(4, 'What does the following expression evaluate to? [] == [] ', 'false');
+(4, 'What will be the output of the following code snippet?
+print(typeof NaN);
+', 'Number'),
+(4, 'How to stop an interval timer in Javascript? Please just spell the name of the method.', 'clearInterval'),
+(4, 'What will be the output of the following code.
+a=5;
+b=4;
+alert(a++(+(+(+b))));', '9'),
+(4, 'What will this code print to the console?
+const myFunc = () => {
+  const a = 2;
+  return () => console.log("a is " + a);
+};
+const a = 1;
+const test = myFunc();
+test();', 'a is 2'),
+(4, 'What is the output of this code?
+var cat = { name: "Athena" };
+
+function swap(feline) {
+  feline.name = "Wild";
+  feline = { name: "Tabby" };
+}
+
+swap(cat);
+console.log(cat.name);', 'Wild'),
+(4, 'What does this code print to the console?
+let bear = {
+  sound: "roar",
+  roar() {
+    console.log(this.sound);
+  },
+};
+
+bear.sound = "grunt";
+let bearSound = bear.roar;
+bearSound();', 'undefined'),
+(4, 'What is the output of this code?
+let scores = [];
+scores.push(1, 2);
+scores.pop();
+scores.push(3, 4);
+scores.pop();
+score = scores.reduce((a, b) => a + b);
+console.log(score);
+', '4'),
+(4, 'What will this code log to the console?
+console.log(typeof 41.1);
+', 'number'),
+(5, 'What is the vertical gap between the two elements below?
+<div style="margin-bottom: 2rem;">Div 1</div>
+<div style="margin-top: 2rem;">Div 2</div>', '2rem'),
+(5, 'Among these selectors which selector has the highest specificity ranking for selecting the anchor link element?
+ul li a
+a
+.example a
+div a', '.example a
+'),
+(5, 'There are many properties that can be used to align elements and create page layouts such as float, position, flexbox and grid. Of these four properties, which one should be used to align a global navigation bar which stays fixed at the top of the page?', 'position'),
+(5, 'The values for the font-weight property can be keywords or numbers. For the numbered value below, what is the keyword in font-weight? font-weight: 700;
+', 'bold'),
+(5, 'Which position style places an element at a fixed location within its relative container?', 'absolute'),
+(5, 'Which CSS keyword can you use to override standard source order and specificity rules? However considered bad practice. ', '!important'),
+(5, 'A universal selector is specified using a(n) ___.', '*'),
+(5, 'Given this code, how tall will the following element be in pixels?
+<style>
+  #tall-text {
+    display: inline;
+    font-size: 20px;
+    height: 200px;
+  }
+</style>
+
+<p id="tall-text">Did I grow?</p>
+', '20px'),
+(5, 'What color would rgb(255,0,0) give?', 'red'),
+(5, 'What is CSS stands for? ', 'Cascading Style Sheet');
 
 
