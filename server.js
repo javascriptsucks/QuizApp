@@ -64,26 +64,33 @@ app.use('/quizAttempt', quizAttemptRoutes);
 // });
 
 app.get('/', (req, res) => {
-  const user_id = req.cookies.user_id;
-  console.log(user_id)
-  let templateVars = {};
-  if (user_id) {
-    userQueries.getUserByID(user_id)
-      .then(user => {
 
-        templateVars = { user };
-
-        console.log('templateVars:', templateVars);
-        return res.render('index', templateVars);
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-
-  } else {
-    return res.render('index', templateVars);
-
+  if (req.cookies.user_id) {
+    return res.redirect('/quizzes');
   }
+
+  return res.render('index');
+
+  // TRIAL CODE
+  // const user_id = req.cookies.user_id;
+  // console.log(user_id)
+  // let templateVars = {};
+  // if (user_id) {
+  //   userQueries.getUserByID(user_id)
+  //     .then(user => {
+
+  //       templateVars = { user };
+
+  //       console.log('templateVars:', templateVars);
+  //       return res.render('index', templateVars);
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message);
+  //     });
+
+  // } else {
+  //   return res.render('index', templateVars);
+  // }
 
 });
 

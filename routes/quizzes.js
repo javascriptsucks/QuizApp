@@ -4,7 +4,7 @@ const quizzesQueries = require('../db/queries/quizzes');
 
 router.use((req, res, next) => {
   if (!req.cookies.user_id) {
-    return res.redirect('/users/login');
+    return res.redirect('/');
   }
   next();
 });
@@ -15,8 +15,12 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   quizzesQueries.getQuizzes()
     .then((quizzes) => {
-      const templateVar = { quizzes };
-      res.render('quizzes', templateVar);
+      const user_name = req.cookies.user_name;
+      const templateVars = {
+        quizzes,
+        user_name
+      };
+      res.render('quizzes', templateVars);
     })
     ;
 });
@@ -31,8 +35,12 @@ router.get('/:quiz_id', (req, res) => {
   const quizId = req.params.quiz_id;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then((questions) => {
-      const templateVar = { questions };
-      res.render('quizzes_show', templateVar);
+      const user_name = req.cookies.user_name;
+      const templateVars = {
+        questions,
+        user_name
+      };
+      res.render('quizzes_show', templateVars);
     });
 });
 
