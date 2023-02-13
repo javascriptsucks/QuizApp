@@ -20,7 +20,7 @@ const getQuizzesQuestionsById = (id = 4) => {
 
   return db.query(queryTemplate, sqlParams)
     .then((res) => {
-      console.log(res.rows);
+      // console.log(res.rows);
       return res.rows;
     });
 };

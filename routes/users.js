@@ -6,14 +6,22 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
+const userQueries = require('../db/queries/users');
+
 
 router.get('/:user_id', (req, res) => {
   res.render('users');
 });
 
 router.post('/login', (req, res) => {
-  res.redirect('quizzes');
+  const email = req.body.emailLogin;
+  userQueries.getUserByEmail(email)
+    .then((user) => {
+      const id = user.id;
+      res.cookie('user_id', id);
+      res.redirect('/quizzes');
+    });
 });
 
 router.post('/logout', (req, res) => {

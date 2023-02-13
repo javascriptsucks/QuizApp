@@ -22,4 +22,6 @@ const getUserByEmail = (email) => {
     });
 };
 
+
+
 module.exports = { getUsers, getUserByEmail };
