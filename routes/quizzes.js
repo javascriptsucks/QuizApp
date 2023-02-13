@@ -1,7 +1,13 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const quizzesQueries = require('../db/queries/quizzes');
 
+router.use((req, res, next) => {
+  if (!req.cookies.user_id) {
+    return res.redirect('/users/login');
+  }
+  next();
+});
 
 // >>> /quizzes
 
@@ -9,10 +15,10 @@ const quizzesQueries = require('../db/queries/quizzes');
 router.get('/', (req, res) => {
   quizzesQueries.getQuizzes()
     .then((quizzes) => {
-      const templateVar = {quizzes};
+      const templateVar = { quizzes };
       res.render('quizzes', templateVar);
     })
-  ;
+    ;
 });
 
 // RENDER CREATE NEW QUIZ PAGE
@@ -25,7 +31,7 @@ router.get('/:quiz_id', (req, res) => {
   const quizId = req.params.quiz_id;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then((questions) => {
-      const templateVar = {questions};
+      const templateVar = { questions };
       res.render('quizzes_show', templateVar);
     });
 });

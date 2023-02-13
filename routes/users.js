@@ -10,8 +10,12 @@ const router = express.Router();
 const userQueries = require('../db/queries/users');
 
 
-router.get('/:user_id', (req, res) => {
-  res.render('users');
+// router.get('/:user_id', (req, res) => {
+//   res.render('users');
+// });
+
+router.get('/login', (req, res) => {
+  res.render('login');
 });
 
 router.post('/login', (req, res) => {
