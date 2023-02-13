@@ -34,12 +34,18 @@ router.get('/new', (req, res) => {
 
 // POST CREATE NEW QUIZ PAGE
 router.post('/new', (req, res) => {
-  const {title, description, isPublic, numberOfQuestions} = req.body;
-  console.log(title, description, isPublic, numberOfQuestions);
+  const userId = req.cookies.user_id;
+  console.log();
+  const {title, description, isPublic, numOfQuestions} = req.body;
+
+  const quiz = {userId, title, description, isPublic, numOfQuestions};
 
 
-  // quizzesQueries.createNewQuizzes()
-  res.redirect('/');
+  // quizzesQueries.createNewQuizzes(quiz)
+  //   .then((quiz) => {
+  //     console.log(quiz);
+  //     res.redirect('/');
+  //   });
 });
 
 

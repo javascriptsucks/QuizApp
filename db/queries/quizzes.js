@@ -4,7 +4,9 @@ const getQuizzes = () => {
   return db.query('SELECT * FROM quizzes;')
     .then(data => {
       return data.rows;
-    });
+    })
+    .catch(err => console.error(err.message));
+
 };
 
 const getQuizzesQuestionsById = (id) => {
@@ -22,7 +24,9 @@ const getQuizzesQuestionsById = (id) => {
     .then((res) => {
       // console.log(res.rows);
       return res.rows;
-    });
+    })
+    .catch(err => console.error(err.message));
+
 };
 
 // Insert new quiz into quizzes database
@@ -31,7 +35,7 @@ const createNewQuizzes = (quiz) => {
   const creatTemplate = `
     INSERT INTO quizzes (creator_id, title, description, is_public, num_of_questions)
     VALUES
-    ($1, $2, $3, $4, 10)
+    ($1, $2, $3, $4, $5)
     RETURNING *
   ;
   `;

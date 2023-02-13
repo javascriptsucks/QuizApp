@@ -21,8 +21,8 @@
 
           <select name="isPublic" class="custom-select custom-select-md">
             <option selected>Open this select menu</option>
-            <option value="1">YES!</option>
-            <option value="2">NO!</option>
+            <option value=true>YES!</option>
+            <option value=false>NO!</option>
           </select>
 
         </div>
@@ -33,15 +33,29 @@
 
           <select name="numOfQuestions" class="custom-select custom-select-md">
             <option selected>Open this select menu</option>
-            <option value="1">5</option>
-            <option value="2">10</option>
-            <option value="3">15</option>
+            <option value=5>5</option>
+            <option value=10>10</option>
+            <option value=15>15</option>
           </select>
 
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <% for(let i = 1; i <= 10; i++) {} %>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label >Question <%= i %></label>
+            <input name="question <%= i %>" type="text" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label >Answer</label>
+            <input name="answer <%= i %>"type="text" class="form-control">
+          </div>
+        </div>
+
+      <% } %>
+      <button type="submit" class="btn btn-primary">Submit New Quiz</button>
     </form>
   </div>
 
