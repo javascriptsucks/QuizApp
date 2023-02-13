@@ -37,7 +37,9 @@ router.post('/new', (req, res) => {
   const userId = req.cookies.user_id;
   console.log();
   const {title, description, isPublic, numOfQuestions} = req.body;
-
+  if (!userId || !title || !description || !isPublic || !numOfQuestions) {
+    res.render('errorhandle');
+  }
   const quiz = {userId, title, description, isPublic, numOfQuestions};
 
 
