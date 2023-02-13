@@ -9,7 +9,6 @@ const quizzesQueries = require('../db/queries/quizzes');
 router.get('/', (req, res) => {
   quizzesQueries.getQuizzes()
     .then((quizzes) => {
-      console.log(quizzes);
       const templateVar = {quizzes};
       res.render('quizzes', templateVar);
     })

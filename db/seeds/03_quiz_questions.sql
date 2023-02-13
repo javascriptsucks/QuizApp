@@ -27,104 +27,103 @@ Please including angle brackets. ', '<script>'),
 (3, 'Which operator returns true if the two compared values are not equal?', '!=='),
 (3, 'Which Object method returns an iterable that can be used to iterate over the property keys of an object?', 'Object.keys()'),
 (3, 'What will be logged to the console?
-var a = ["dog", "cat", "hen"];
-a[100] = "fox";
-console.log(a.length);', '101'),
+var a = ["dog", "cat", "hen"];\n
+a[100] = "fox";\n
+console.log(a.length);\n', '101'),
 (3, '0 && hi
 What Will this expression return? ', '0'),
 (3, 'What does the following expression evaluate to? [] == [] ', 'false'),
 (3, 'What will be logged to the console?
-const x = 6 % 2;
-const y = x ? "One" : "Two";
-console.log(y);', 'Two'),
+const x = 6 % 2;\n
+const y = x ? "One" : "Two";\n
+console.log(y);\n', 'Two'),
 (3, 'What is the result of running the statement shown?
-let a = 5;
-console.log(++a);', '6'),
+let a = 5;\n
+console.log(++a);\n', '6'),
 (4, 'What value is assigned to total after this code executes?
-function sum(num1, num2 = 2, num3 = 3) {
-  return num1 + num2 + num3;
-}
-let values = [1, 5];
-let total = sum(4, ...values);', '10'),
+function sum(num1, num2 = 2, num3 = 3) {\n
+  return num1 + num2 + num3;\n
+}\n
+let values = [1, 5];\n
+let total = sum(4, ...values);\n', '10'),
 (4, 'What will be the output of the following code snippet?
-<script type="text/javascript">a = 5 + "9"; document.write(a);</script>
+<script type="text/javascript">a = 5 + "9";\n document.write(a);\n</script>\n
 ', '59'),
 (4, 'What will be the output of the following code snippet?
-print(typeof NaN);
+print(typeof NaN);\n
 ', 'Number'),
 (4, 'How to stop an interval timer in Javascript? Please just spell the name of the method.', 'clearInterval'),
 (4, 'What will be the output of the following code.
-a=5;
-b=4;
-alert(a++(+(+(+b))));', '9'),
+a=5;\n
+b=4;\n
+alert(a++(+(+(+b))));\n', '9'),
 (4, 'What will this code print to the console?
-const myFunc = () => {
-  const a = 2;
-  return () => console.log("a is " + a);
-};
-const a = 1;
-const test = myFunc();
-test();', 'a is 2'),
+const myFunc = () => {\n
+  const a = 2;\n
+  return () => console.log("a is " + a);\n
+};\n
+const a = 1;\n
+const test = myFunc();\n
+test();\n', 'a is 2'),
 (4, 'What is the output of this code?
-var cat = { name: "Athena" };
+var cat = { name: "Athena" };\n
 
-function swap(feline) {
-  feline.name = "Wild";
-  feline = { name: "Tabby" };
-}
+function swap(feline) {\n
+  feline.name = "Wild";\n
+  feline = { name: "Tabby" };\n
+}\n
 
-swap(cat);
-console.log(cat.name);', 'Wild'),
-(4, 'What does this code print to the console?
-let bear = {
-  sound: "roar",
-  roar() {
-    console.log(this.sound);
-  },
-};
+swap(cat);\n
+console.log(cat.name);\n', 'Wild'),
+(4, 'What does this code print to the console?\n
+let bear = {\n
+  sound: "roar",\n
+  roar() {\n
+    console.log(this.sound);\n
+  },\n
+};\n
 
-bear.sound = "grunt";
-let bearSound = bear.roar;
-bearSound();', 'undefined'),
-(4, 'What is the output of this code?
-let scores = [];
-scores.push(1, 2);
-scores.pop();
-scores.push(3, 4);
-scores.pop();
-score = scores.reduce((a, b) => a + b);
-console.log(score);
+bear.sound = "grunt";\n
+let bearSound = bear.roar;\n
+bearSound();\n', 'undefined'),
+(4, 'What is the output of this code?\n
+let scores = [];\n
+scores.push(1, 2);\n
+scores.pop();\n
+scores.push(3, 4);\n
+scores.pop();\n
+score = scores.reduce((a, b) => a + b);\n
+console.log(score);\n
 ', '4'),
-(4, 'What will this code log to the console?
-console.log(typeof 41.1);
+(4, 'What will this code log to the console?\n
+console.log(typeof 41.1);\n
 ', 'number'),
-(5, 'What is the vertical gap between the two elements below?
-<div style="margin-bottom: 2rem;">Div 1</div>
-<div style="margin-top: 2rem;">Div 2</div>', '2rem'),
+(5, 'What is the vertical gap between the two elements below?\n
+<div style="margin-bottom: 2rem;">Div 1</div>\n
+<div style="margin-top: 2rem;">Div 2</div>\n', '2rem'),
 (5, 'Among these selectors which selector has the highest specificity ranking for selecting the anchor link element?
-ul li a
-a
-.example a
-div a', '.example a
+ul li a\n
+a\n
+.example a\n
+div a\n', '.example a
 '),
 (5, 'There are many properties that can be used to align elements and create page layouts such as float, position, flexbox and grid. Of these four properties, which one should be used to align a global navigation bar which stays fixed at the top of the page?', 'position'),
-(5, 'The values for the font-weight property can be keywords or numbers. For the numbered value below, what is the keyword in font-weight? font-weight: 700;
+(5, 'The values for the font-weight property can be keywords or numbers. For the numbered value below, what is the keyword in font-weight? font-weight: 700;\n
 ', 'bold'),
-(5, 'Which position style places an element at a fixed location within its relative container?', 'absolute'),
+(5, 'Which position style places an element at a fixed location within its relative container?\n', 'absolute'),
 (5, 'Which CSS keyword can you use to override standard source order and specificity rules? However considered bad practice. ', '!important'),
 (5, 'A universal selector is specified using a(n) ___.', '*'),
-(5, 'Given this code, how tall will the following element be in pixels?
-<style>
-  #tall-text {
-    display: inline;
-    font-size: 20px;
-    height: 200px;
-  }
-</style>
+(5, 'Given this code, how tall will the following element be in pixels?\n
+<style>\n
+  #tall-text {\n
+    display: inline;\n
+    font-size: 20px;\n
+    height: 200px;\n
+  }\n
+</style>\n
 
-<p id="tall-text">Did I grow?</p>
+<p id="tall-text">Did I grow?</p>\n
 ', '20px'),
 (5, 'What color would rgb(255,0,0) give?', 'red'),
 (5, 'What is CSS stands for? ', 'Cascading Style Sheet');
-
 

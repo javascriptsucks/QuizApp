@@ -1,7 +1,27 @@
 <%- include('partials/_header') %>
 
-<main class="flex-fill">
-</main>
+  <main class="flex-fill">
+    <form action="" method="POST">
 
+      <%  for (let i = 0; i < questions.length; i++) {     %>
+
+        <div class="input-group input-group-sm mb-3">
+          <p class="text-justify">
+            <%= questions[i].question %>
+          </p>
+
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">answer</span>
+          </div>
+          <input name="answer<%= questions[i].id %>" type="text" class="form-control">
+        </div>
+
+
+      <% } %>
+
+      <button type="submit" class="btn btn-primary">Submit Answers</button>
+    </form>
+
+  </main>
 
 <%- include('partials/_footer') %>
