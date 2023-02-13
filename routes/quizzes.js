@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
       };
       res.render('quizzes', templateVars);
     })
-    ;
+  ;
 });
 
 
@@ -31,6 +31,17 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   res.render('quizzes_new');
 });
+
+// POST CREATE NEW QUIZ PAGE
+router.post('/new', (req, res) => {
+  const {title, description, isPublic, numberOfQuestions} = req.body;
+  console.log(title, description, isPublic, numberOfQuestions);
+
+
+  // quizzesQueries.createNewQuizzes()
+  res.redirect('/');
+});
+
 
 
 

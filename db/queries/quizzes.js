@@ -25,5 +25,25 @@ const getQuizzesQuestionsById = (id) => {
     });
 };
 
+// Insert new quiz into quizzes database
+// Default number of questions as 10, and is_public as true FOR NOW.
+const createNewQuizzes = (quiz) => {
+  const creatTemplate = `
+    INSERT INTO quizzes (creator_id, title, description, is_public, num_of_questions)
+    VALUES
+    ($1, $2, $3, $4, 10)
+    RETURNING *
+  ;
+  `;
 
-module.exports = { getQuizzes, getQuizzesQuestionsById };
+  const {userId, title, description, isPublic, numOfQuestions} = quiz;
+
+  const sqlParams = [userId, title, description, isPublic, numOfQuestions];
+
+  return db.query(creatTemplate, sqlParams)
+    .then((res) => console.log(res.rows))
+    .catch(err => console.error(err.message));
+};
+
+
+module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes};
