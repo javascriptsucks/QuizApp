@@ -4,8 +4,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  font-family: 'Alata', sans-serif;
 
-  background: rgb(255, 255, 255);
+
+  background: #E9DAC4;
   // background: linear-gradient(
   //   227deg,
   //   rgba(163, 208, 219, 1) 0%,
@@ -15,4 +17,8 @@ body {
   //   rgba(163, 208, 219, 1) 74%,
   //   rgba(163, 208, 219, 1) 100%
   // );
+}
+
+.btn-primary {
+  background-color: #1E2640;
 }
