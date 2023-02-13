@@ -7,11 +7,11 @@
 
         <div class="card text-center mt-2 mb-2">
           <div class="card-header">
-            <%= quizzes[i].title %> Quiz
+            Created by: <%= quizzes[i].creator %>
           </div>
           <div class="card-body">
             <h5 class="card-title">
-              <%= quizzes[i].title %> Quiz
+              <%= quizzes[i].title.toUpperCase() %> Quiz
             </h5>
             <p class="card-text">
               <%= quizzes[i].description %>
