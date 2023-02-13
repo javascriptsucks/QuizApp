@@ -65,23 +65,23 @@ app.use('/quizAttempt', quizAttemptRoutes);
 
 app.get('/', (req, res) => {
   const user_id = req.cookies.user_id;
-  console.log(user_id)
+  console.log(user_id);
   let templateVars = {};
   if (user_id) {
     userQueries.getUserByID(user_id)
       .then(user => {
-
-        templateVars = { user };
+        console.log('in the query');
+        templateVars = { user: user };
 
         console.log('templateVars:', templateVars);
-        return res.render('index', templateVars);
+        res.render('index', templateVars);
       })
       .catch(err => {
         console.log(err.message);
       });
 
   } else {
-    return res.render('index', templateVars);
+    res.render('index');
 
   }
 
