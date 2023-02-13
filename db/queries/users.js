@@ -22,4 +22,21 @@ const getUserByEmail = (email) => {
     });
 };
 
-module.exports = { getUsers, getUserByEmail };
+const getUserByID = (id) => {
+  const idQuery = `
+    SELECT *
+    FROM users
+    WHERE users.id = $1
+  ;
+  `;
+  const sqlParams = [id];
+  return db.query(idQuery, sqlParams)
+    .then((res) => {
+      const user = res.rows[0];
+      return user;
+    });
+};
+
+
+
+module.exports = { getUsers, getUserByEmail, getUserByID };
