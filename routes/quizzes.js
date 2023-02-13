@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const quizzesQueries = require('../db/queries/quizzes');
+const quizQuestionsQueries = require('../db/queries/quiz_questions');
 
 router.use((req, res, next) => {
   if (!req.cookies.user_id) {
@@ -35,7 +36,6 @@ router.get('/new', (req, res) => {
 // POST CREATE NEW QUIZ PAGE
 router.post('/new', (req, res) => {
   const userId = req.cookies.user_id;
-  console.log();
   const {title, description, isPublic, numOfQuestions} = req.body;
   if (!userId || !title || !description || !isPublic || !numOfQuestions) {
     res.render('errorhandle');
@@ -43,11 +43,23 @@ router.post('/new', (req, res) => {
   const quiz = {userId, title, description, isPublic, numOfQuestions};
 
 
-  // quizzesQueries.createNewQuizzes(quiz)
-  //   .then((quiz) => {
-  //     console.log(quiz);
-  //     res.redirect('/');
-  //   });
+
+
+  quizzesQueries.createNewQuizzes(quiz)
+    .then(() => {
+      const quizId = 6;
+      for (let i = 1; i <= numOfQuestions; i++) {
+        const questionText = `hmmmm${i}`;
+        const answerText = 'hmmmm';
+        const question = {quizId, questionText, answerText};
+
+        quizQuestionsQueries.createQusFromQusObj(question)
+          .then(() => console.log('Insert data to questions'));
+      }
+
+
+      res.redirect('/');
+    });
 });
 
 
