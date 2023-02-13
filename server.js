@@ -60,6 +60,7 @@ app.get('/', (req, res) => {
   const user_id = req.cookies.user_id;
   if (user_id) {
     return res.redirect('/quizzes');
+    
     // userQueries.getUserByID(user_id)
     //   .then(user => {
 
