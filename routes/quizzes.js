@@ -23,7 +23,12 @@ router.get('/new', (req, res) => {
 
 // RENDER INDIVIDUAL QUIZ PAGE
 router.get('/:quiz_id', (req, res) => {
-  res.render('quizzes_show');
+  const quizId = req.params.quiz_id;
+  quizzesQueries.getQuizzesQuestionsById(quizId)
+    .then((questions) => {
+      const templateVar = {questions};
+      res.render('quizzes_show', templateVar);
+    });
 });
 
 // router.get()

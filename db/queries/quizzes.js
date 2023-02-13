@@ -7,7 +7,7 @@ const getQuizzes = () => {
     });
 };
 
-const getQuizzesQuestionsById = (id = 4) => {
+const getQuizzesQuestionsById = (id) => {
   const queryTemplate = `
     SELECT question_text as question, answer_text as answer
     FROM quiz_questions
@@ -24,5 +24,6 @@ const getQuizzesQuestionsById = (id = 4) => {
       return res.rows;
     });
 };
+
 
 module.exports = { getQuizzes, getQuizzesQuestionsById };
