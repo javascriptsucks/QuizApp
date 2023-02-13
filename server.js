@@ -38,6 +38,9 @@ const quizzesAPIroutes = require('./routes/quizzes-api');
 const quizzesRoutes = require('./routes/quizzes');
 const quizAttemptRoutes = require('./routes/quizAttempt');
 
+// Helper Function for user ID query
+const userQueries = require('./db/queries/users');
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -54,7 +57,26 @@ app.use('/quizAttempt', quizAttemptRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const user_id = req.cookies.user_id;
+  if (user_id) {
+    return res.redirect('/quizzes');
+    // userQueries.getUserByID(user_id)
+    //   .then(user => {
+
+    //     const templateVars = {
+    //       id: user_id,
+    //       name: user.name
+    //     };
+
+    //     console.log('templateVars:', templateVars);
+    //     return res.render('index', templateVars);
+    //   })
+    //   .catch(err => {
+    //     console.log(err.message);
+    //   });
+  }
+
+  return res.render('index');
 });
 
 app.listen(PORT, () => {
