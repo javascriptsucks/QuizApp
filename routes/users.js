@@ -16,6 +16,9 @@ const userQueries = require('../db/queries/users');
 
 // GET LOGIN PAGE
 router.get('/login', (req, res) => {
+  if (req.cookies.user_id) {
+    return res.redirect('/quizzes');
+  }
   res.render('login');
 });
 

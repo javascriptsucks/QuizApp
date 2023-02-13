@@ -25,10 +25,14 @@ router.get('/', (req, res) => {
     ;
 });
 
+
+
 // RENDER CREATE NEW QUIZ PAGE
 router.get('/new', (req, res) => {
   res.render('quizzes_new');
 });
+
+
 
 // RENDER INDIVIDUAL QUIZ PAGE
 router.get('/:quiz_id', (req, res) => {
