@@ -1,11 +1,19 @@
 const express = require('express');
 const router  = express.Router();
+const quizzesQueries = require('../db/queries/quizzes');
+
 
 // >>> /quizzes
 
 // RENDER SHOW ALL QUIZZES PAGE
 router.get('/', (req, res) => {
-  res.render('quizzes');
+  quizzesQueries.getQuizzes()
+    .then((quizzes) => {
+      console.log(quizzes);
+      const templateVar = {quizzes};
+      res.render('quizzes', templateVar);
+    })
+  ;
 });
 
 // RENDER CREATE NEW QUIZ PAGE
