@@ -18,7 +18,7 @@ router.get('/:quiz_id', (req, res) => {
   res.render('quizzes_show');
 });
 
-router.get()
+// router.get()
 
 
 module.exports = router;
