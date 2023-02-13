@@ -67,10 +67,25 @@
           </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0" action="/users/login" method="POST">
-          <input class="form-control mr-sm-2" name="emailLogin" placeholder="Your Email">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
-        </form>
+<% /* %>
+
+
+        <% if(user === undefined) { %>
+
+          <form class="form-inline my-2 my-lg-0" action="/users/login" method="POST">
+            <input class="form-control mr-sm-2" name="emailLogin" placeholder="Your Email">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
+          </form>
+
+          <% } else {%>
+
+            <form action="/users/logout" method="post">
+              <span>Logged In As: <%= user.name %></span>
+              <button class="btn btn-outline-info" type="submit">Log Out</button>
+            </form>
+
+            <% } %>
+<% */ %>
 
       </div>
     </nav>

@@ -56,28 +56,35 @@ app.use('/quizAttempt', quizAttemptRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// app.use((req, res, next) => {
+//   if (!req.cookies.user_id) {
+//     return res.redirect('/');
+//   }
+//   next();
+// });
+
 app.get('/', (req, res) => {
   const user_id = req.cookies.user_id;
+  console.log(user_id)
+  let templateVars = {};
   if (user_id) {
-    return res.redirect('/quizzes');
-    
-    // userQueries.getUserByID(user_id)
-    //   .then(user => {
+    userQueries.getUserByID(user_id)
+      .then(user => {
 
-    //     const templateVars = {
-    //       id: user_id,
-    //       name: user.name
-    //     };
+        templateVars = { user };
 
-    //     console.log('templateVars:', templateVars);
-    //     return res.render('index', templateVars);
-    //   })
-    //   .catch(err => {
-    //     console.log(err.message);
-    //   });
+        console.log('templateVars:', templateVars);
+        return res.render('index', templateVars);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+
+  } else {
+    return res.render('index', templateVars);
+
   }
 
-  return res.render('index');
 });
 
 app.listen(PORT, () => {

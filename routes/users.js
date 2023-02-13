@@ -25,8 +25,8 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  res.clearCookie(user_id);
-  res.redirect('index');
+  res.clearCookie('user_id');
+  res.redirect('/');
 });
 
 module.exports = router;
