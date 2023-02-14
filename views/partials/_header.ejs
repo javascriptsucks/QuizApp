@@ -18,6 +18,11 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/1.1.0/font-awesome-animation.min.css"
     referrerpolicy="no-referrer" />
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+
   <!-- External CSS -->
   <!-- Bootstrap 4.6 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -28,6 +33,8 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/navbar.css" />
+  <link rel="stylesheet" href="/styles/login.css" />
   <!-- App JS -->
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/users.js"></script>
@@ -36,8 +43,8 @@
 
 <body>
   <div class="d-flex flex-column min-vh-100 w-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-      <a class="navbar-brand" href="/">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">QuizApp</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,32 +56,24 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <a class="nav-link" href="/quizzes/new">Create A Quiz</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <a class="nav-link" href="/">My Quizzes</a>
           </li>
+
         </ul>
 
 
         <% if(typeof(user_name) !=='undefined' ) { %>
 
           <form action="/users/logout" method="post">
-            <span>Logged In As: <%= user_name %></span>
+            <span id="logged-in-text">Logged In As: <%= user_name %></span>
             <button class="btn btn-outline-info" type="submit">Log Out</button>
           </form>
 
           <% } %>
       </div>
+
+
     </nav>

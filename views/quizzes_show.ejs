@@ -1,27 +1,36 @@
 <%- include('partials/_header') %>
 
-  <main class="flex-fill">
-    <form action="" method="POST">
+  <main id="quizzes-show-main" class="flex-fill">
+    <span id="quizzes-show-title">
+      <h1>
+        <%= questions[0].title.toUpperCase() %> Quiz
+      </h1>
+      <h3>
+        Created By: <%= questions[0].creator %>
+      </h3>
+    </span>
 
-      <%  for (let i = 0; i < questions.length; i++) {     %>
+    <form id="quizzes-show-form" action="" method="POST">
 
-        <div class="input-group input-group-sm mb-3">
+      <% for (let i=0; i < questions.length; i++) { %>
+
+        <div class="quizzes-show-questions input-group input-group-sm mb-3">
           <p class="text-justify">
             <%= questions[i].question %>
           </p>
 
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm">answer</span>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Answer:</span>
+            <input name="answer<%= questions[i].id %>" type="text" class="form-control">
           </div>
-          <input name="answer<%= questions[i].id %>" type="text" class="form-control">
         </div>
 
 
-      <% } %>
+        <% } %>
 
-      <button type="submit" class="btn btn-primary">Submit Answers</button>
+          <button type="submit" class="btn btn-primary">Submit Answers</button>
     </form>
 
   </main>
 
-<%- include('partials/_footer') %>
+  <%- include('partials/_footer') %>

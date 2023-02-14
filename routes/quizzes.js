@@ -17,10 +17,12 @@ router.get('/', (req, res) => {
   quizzesQueries.getQuizzes()
     .then((quizzes) => {
       const user_name = req.cookies.user_name;
+
       const templateVars = {
         quizzes,
         user_name
       };
+      
       res.render('quizzes', templateVars);
     })
   ;
