@@ -40,25 +40,6 @@ const getQuizzesQuestionsById = (id) => {
 };
 
 
-const getQuizAttemptById = (quizAttemptId) => {
-  const queryTemplate = `
-    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
-    FROM quiz_attempts
-    JOIN users ON user_id = users.id
-    JOIN quizzes ON quiz_id = quizzes.id
-    WHERE quiz_attempts.id = $1
-  ;
-  `;
-  const sqlParams = [quizAttemptId];
-
-  return db.query(queryTemplate, sqlParams)
-    .then((data) => {
-      return data.rows[0];
-    });
-
-};
-
-
 // Insert new quiz into quizzes database
 // Default number of questions as 10, and is_public as true FOR NOW.
 const createNewQuizzes = (quiz) => {
@@ -82,4 +63,22 @@ const createNewQuizzes = (quiz) => {
 };
 
 
-module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, getQuizAttemptById };
+const getQuizAttemptById = (quizAttemptId) => {
+  const queryTemplate = `
+    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
+    FROM quiz_attempts
+    JOIN users ON user_id = users.id
+    JOIN quizzes ON quiz_id = quizzes.id
+    WHERE quiz_attempts.id = $1
+  ;
+  `;
+  const sqlParams = [quizAttemptId];
+
+  return db.query(queryTemplate, sqlParams)
+    .then((data) => {
+      return data.rows[0];
+    });
+
+};
+
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, getQuizAttemptById};
