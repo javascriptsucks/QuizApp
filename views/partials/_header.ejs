@@ -50,29 +50,31 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/quizzes/new">Create A Quiz</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">My Quizzes</a>
-          </li>
 
-        </ul>
-
-
-        <% if(typeof(user_name) !=='undefined' ) { %>
-
-          <form action="/users/logout" method="post">
-            <span id="logged-in-text">Logged In As: <%= user_name %></span>
-            <button class="btn btn-outline-info" type="submit">Log Out</button>
-          </form>
-
+        <% if(typeof(userId) !=='undefined' ) { %>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/quizzes/new">Create A Quiz</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/<%= userId %>">My Quizzes</a>
+            </li>
+          </ul>
           <% } %>
+
+            <% if(typeof(userName) !=='undefined' ) { %>
+
+              <form action="/users/logout" method="post">
+                <span id="logged-in-text">Logged In As: <%= userName %></span>
+                <button class="btn btn-outline-info" type="submit">Log Out</button>
+              </form>
+
+              <% } %>
       </div>
 
 

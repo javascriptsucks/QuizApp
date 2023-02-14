@@ -1,0 +1,33 @@
+<%- include('partials/_header') %>
+
+  <main class="flex-fill">
+    <div class="list-group w-75 mx-auto mt-5">
+
+      <% for (let i=0; i < quizzes.length; i++) { %>
+
+        <div class="card text-center mt-2 mb-2">
+          <div class="card-header">
+            Created by: <%= quizzes[i].creator %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= quizzes[i].title.toUpperCase() %> Quiz
+            </h5>
+            <p class="card-text">
+              <%= quizzes[i].description %>
+            </p>
+            <a href="/quizzes/<%= quizzes[i].id %>" class="btn btn-primary">Attempt This Quiz!</a>
+          </div>
+          <div class="card-footer text-muted">
+            Quiz with <%= quizzes[i].num_of_questions %> quesitons
+          </div>
+        </div>
+
+        <% } %>
+
+    </div>
+
+  </main>
+
+
+  <%- include('partials/_footer') %>

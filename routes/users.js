@@ -10,16 +10,17 @@ const router = express.Router();
 const userQueries = require('../db/queries/users');
 
 
-// router.get('/:user_id', (req, res) => {
-//   res.render('users');
-// });
+
+// PATH: /users
 
 // GET LOGIN PAGE
 router.get('/login', (req, res) => {
   if (req.cookies.user_id) {
     return res.redirect('/quizzes');
   }
-  res.render('login');
+  const userId = req.cookies.user_id;
+  const userName = req.cookies.user_name;
+  res.render('login', { userId, userName });
 });
 
 // LOGIN PAGE SUBMIT
@@ -40,6 +41,25 @@ router.post('/logout', (req, res) => {
   res.clearCookie('user_id');
   res.clearCookie('user_name');
   res.redirect('/');
+});
+
+// GET ALL QUIZZES CREATED BY LOGGED-IN USER
+router.get('/:user_id', (req, res) => {
+  const userId = req.params.user_id;
+
+  userQueries.getQuizzesByCreator(userId)
+    .then((quizzes) => {
+      const userName = req.cookies.user_name;
+
+      const templateVars = {
+        quizzes,
+        userName,
+        userId
+      };
+
+      res.render('quizzes_user', templateVars);
+    })
+    ;
 });
 
 module.exports = router;

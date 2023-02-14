@@ -12,15 +12,16 @@ router.use((req, res, next) => {
 
 // >>> /quizzes
 
-// RENDER SHOW ALL QUIZZES PAGE
+// RENDER SHOW ALL PUBLIC QUIZZES PAGE
 router.get('/', (req, res) => {
   quizzesQueries.getPublicQuizzes()
     .then((quizzes) => {
-      const user_name = req.cookies.user_name;
-
+      const userName = req.cookies.user_name;
+      const userId = req.cookies.user_id;
       const templateVars = {
         quizzes,
-        user_name
+        userName,
+        userId
       };
 
       res.render('quizzes', templateVars);
@@ -32,8 +33,35 @@ router.get('/', (req, res) => {
 
 // RENDER CREATE NEW QUIZ PAGE
 router.get('/new', (req, res) => {
-  res.render('quizzes_new');
+  const userId = req.cookies.user_id;
+  const userName = req.cookies.user_name;
+
+  const templateVars = {
+    userId,
+    userName
+  };
+  res.render('quizzes_new', templateVars);
 });
+
+
+
+
+// RENDER INDIVIDUAL QUIZ PAGE
+router.get('/:quiz_id', (req, res) => {
+  const quizId = req.params.quiz_id;
+  quizzesQueries.getQuizzesQuestionsById(quizId)
+    .then((questions) => {
+      const userName = req.cookies.user_name;
+      const userId = req.cookies.user_id;
+      const templateVars = {
+        questions,
+        userName,
+        userId
+      };
+      res.render('quizzes_show', templateVars);
+    });
+});
+
 
 
 
@@ -67,27 +95,11 @@ router.post('/new', (req, res) => {
           .then(() => console.log('Insert data to questions'));
       }
 
-
       res.redirect('/');
     });
 });
 
 
-
-
-// RENDER INDIVIDUAL QUIZ PAGE
-router.get('/:quiz_id', (req, res) => {
-  const quizId = req.params.quiz_id;
-  quizzesQueries.getQuizzesQuestionsById(quizId)
-    .then((questions) => {
-      const user_name = req.cookies.user_name;
-      const templateVars = {
-        questions,
-        user_name
-      };
-      res.render('quizzes_show', templateVars);
-    });
-});
 
 // router.get()
 

@@ -17,21 +17,6 @@ const getPublicQuizzes = () => {
     .catch(err => console.error(err.message));
 };
 
-// GET ALL QUIZZES CREATED BY A USER
-const getQuizzesByCreator = (userId) => {
-
-  const queryTemplate = `
-    SELECT quizzes.*, users.name as creator
-    FROM quizzes
-    JOIN users ON creator_id = users.id
-    WHERE is_public IS TRUE;
-  `;
-  return db.query(queryTemplate)
-    .then(data => {
-      return data.rows;
-    })
-    .catch(err => console.error(err.message));
-};
 
 
 // GET ALL QUIZ QUESTIONS BY QUIZ_ID + NAME OF CREATOR
@@ -53,6 +38,26 @@ const getQuizzesQuestionsById = (id) => {
     .catch(err => console.error(err.message));
 
 };
+
+
+const getQuizAttemptById = (quizAttemptId) => {
+  const queryTemplate = `
+    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
+    FROM quiz_attempts
+    JOIN users ON user_id = users.id
+    JOIN quizzes ON quiz_id = quizzes.id
+    WHERE quiz_attempts.id = $1
+  ;
+  `;
+  const sqlParams = [quizAttemptId];
+
+  return db.query(queryTemplate, sqlParams)
+    .then((data) => {
+      return data.rows[0];
+    });
+
+};
+
 
 // Insert new quiz into quizzes database
 // Default number of questions as 10, and is_public as true FOR NOW.
@@ -77,4 +82,4 @@ const createNewQuizzes = (quiz) => {
 };
 
 
-module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, getQuizzesByCreator };
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, getQuizAttemptById };

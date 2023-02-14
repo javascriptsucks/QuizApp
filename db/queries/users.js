@@ -37,6 +37,24 @@ const getUserByID = (id) => {
     });
 };
 
+// GET ALL QUIZZES CREATED BY A USER
+const getQuizzesByCreator = (userId) => {
+
+  const queryTemplate = `
+    SELECT quizzes.*, users.name as creator
+    FROM quizzes
+    JOIN users ON creator_id = users.id
+    WHERE creator_id = $1;
+  `;
+  const sqlParams = [userId];
+
+  return db.query(queryTemplate, sqlParams)
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => console.error(err.message));
+};
 
 
-module.exports = { getUsers, getUserByEmail, getUserByID };
+
+module.exports = { getUsers, getUserByEmail, getUserByID, getQuizzesByCreator };
