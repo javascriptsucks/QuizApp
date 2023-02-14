@@ -61,27 +61,4 @@ const createNewQuizzes = (quiz) => {
 };
 
 
-<<<<<<< HEAD
 module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes};
-=======
-const getQuizAttemptById = (quizAttemptId) => {
-  const queryTemplate = `
-    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
-    FROM quiz_attempts
-    JOIN users ON user_id = users.id
-    JOIN quizzes ON quiz_id = quizzes.id
-    WHERE quiz_attempts.id = $1
-  ;
-  `;
-  const sqlParams = [quizAttemptId];
-
-  return db.query(queryTemplate, sqlParams)
-    .then((data) => {
-      return data.rows[0];
-    });
-
-};
-
-
-module.exports = { getQuizzes, getQuizzesQuestionsById, getQuizAttemptById };
->>>>>>> 7c44ddca4e13a17126ccb26232f79a7262af3825
