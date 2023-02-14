@@ -20,13 +20,12 @@ router.post('/?', (req, res) => {
 
       const attempt = {quizId, userId, score};
       quizAttemptsQueries.createAttempt(attempt)
-        .then(res => console.log(res));
+        .then(response => {
+          console.log(response);
+          res.redirect(`/quizAttempt/${response.id}`);
+        });
     });
 
-
-
-
-  res.redirect(`/`);
 });
 
 
@@ -35,7 +34,7 @@ router.post('/?', (req, res) => {
 router.get('/:attempt_id', (req, res) => {
   const attemptID = req.params.attempt_id;
 
-  quizzesQueries.getQuizAttemptById(attemptID)
+  quizAttemptsQueries.getQuizAttemptById(attemptID)
     .then(attempt => {
       return res.render('quiz_attempt', { attempt });
     });
