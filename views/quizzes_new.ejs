@@ -1,66 +1,82 @@
 <%- include('partials/_header') %>
 
-<main class="flex-fill">
+  <main class="flex-fill">
 
-  <div class="container w-75">
-    <form action="/quizzes/new" method="POST">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label >Quiz Title</label>
-          <input name="title" type="text" class="form-control">
-        </div>
-        <div class="form-group col-md-6">
-          <label >Quiz Description</label>
-          <input name="description" type="text" class="form-control">
-        </div>
+    <div class="container w-75">
+      <div id="new-quiz-title">
+        <h1>Create A New Quiz!</h1>
+        <p>Please fill out EVERY field below before you hit SUBMIT.</p>
       </div>
+      <form action="/quizzes/new" method="POST">
+        <div id="new-quiz-info">
+          <span>
+            <h4><u>Basic Info:</u></h4>
+          </span>
 
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label >Is This Public Quiz? </label>
-
-          <select name="isPublic" class="custom-select custom-select-md">
-            <option selected>Open this select menu</option>
-            <option value=true>YES!</option>
-            <option value=false>NO!</option>
-          </select>
-
-        </div>
-
-
-        <div class="form-group col-md-6">
-          <label >Questions Number in Quiz </label>
-
-          <select name="numOfQuestions" class="custom-select custom-select-md">
-            <option selected>Open this select menu</option>
-            <option value=5>5</option>
-            <option value=10>10</option>
-            <option value=15>15</option>
-          </select>
-
-        </div>
-      </div>
-
-      <% for (let i = 1; i <= 10;  i++ ) { %>
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label >Question <%= i %></label>
-            <input name="question<%= i %>" type="text" class="form-control">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Quiz Title</label>
+              <input name="title" type="text" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Quiz Description</label>
+              <input name="description" type="text" class="form-control">
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <label >Answer</label>
-            <input name="answer<%= i %>"type="text" class="form-control">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Is This Quiz Public? </label>
+
+              <select name="isPublic" class="custom-select custom-select-md">
+                <option selected>Open this select menu</option>
+                <option value=true>YES!</option>
+                <option value=false>NO!</option>
+              </select>
+
+            </div>
+
+
+            <div class="form-group col-md-6">
+              <label>Number Of Questions In Quiz </label>
+
+              <select name="numOfQuestions" class="custom-select custom-select-md">
+                <option selected>Open this select menu</option>
+                <option value=5>5</option>
+                <option value=10>10</option>
+                <option value=15>15</option>
+              </select>
+
+            </div>
           </div>
         </div>
-
-      <% } %>
-      <button type="submit" class="btn btn-primary">Submit New Quiz</button>
-    </form>
-  </div>
-
-
-</main>
+        <div id="new-quiz-content">
+          <span>
+            <h4><u>Fill Out Questions Here:</u></h4>
+          </span>
 
 
-<%- include('partials/_footer') %>
+          <% for (let i=1; i <=10; i++ ) { %>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Question <%= i %></label>
+                <input name="question<%= i %>" type="text" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Answer</label>
+                <input name="answer<%= i %>" type="text" class="form-control">
+              </div>
+            </div>
+
+            <% } %>
+              <button type="submit" class="btn btn-primary">Submit New Quiz</button>
+        </div>
+      </form>
+    </div>
+
+
+  </main>
+
+
+  <%- include('partials/_footer') %>
