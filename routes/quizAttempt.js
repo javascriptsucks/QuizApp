@@ -3,14 +3,32 @@ const router = express.Router();
 const quizzesQueries = require('../db/queries/quizzes');
 const quizAttemptsQueries = require('../db/queries/quiz_attempts');
 
-// quizAttempt post create new attempt rows
-router.post('/?', (req, res) => {
+
+// /quizAttempt
+
+// GET to render quiz_attempt page with info from db query.
+router.get('/:attempt_id', (req, res) => {
+  const attemptID = req.params.attempt_id;
+
+  quizAttemptsQueries.getQuizAttemptById(attemptID)
+    .then(attempt => {
+      return res.render('quiz_attempt', { attempt });
+    });
+
+});
+
+
+// POST to create new attempt rows in DB
+router.post('/', (req, res) => {
+  console.log('req.body:', req.body);
+
   const userId = req.cookies.user_id;
-  const quizId = req.query.quizid;
+  const quizId = req.body.quiz_id;
   let score = 0;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then(questions => {
       const inputAnswer = Object.values(req.body);
+
       questions.forEach((question, index) => {
         console.log(question.answer, question.question_id);
         if (question.answer.toLowerCase() === inputAnswer[index].toLowerCase()) {
@@ -18,7 +36,7 @@ router.post('/?', (req, res) => {
         }
       });
 
-      const attempt = {quizId, userId, score};
+      const attempt = { quizId, userId, score };
       quizAttemptsQueries.createAttempt(attempt)
         .then(response => {
           console.log(response);
@@ -29,17 +47,6 @@ router.post('/?', (req, res) => {
 });
 
 
-
-// quizAttempt/
-router.get('/:attempt_id', (req, res) => {
-  const attemptID = req.params.attempt_id;
-
-  quizAttemptsQueries.getQuizAttemptById(attemptID)
-    .then(attempt => {
-      return res.render('quiz_attempt', { attempt });
-    });
-
-});
 
 module.exports = router;
 

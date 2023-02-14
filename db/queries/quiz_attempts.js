@@ -29,7 +29,7 @@ const createAttempt = function(attempt) {
     RETURNING *
   `;
 
-  const {quizId, userId, score} = attempt;
+  const { quizId, userId, score } = attempt;
 
   const sqlParams = [quizId, userId, score];
 
@@ -41,4 +41,4 @@ const createAttempt = function(attempt) {
     .catch(err => console.error(err.message));
 };
 
-module.exports = {createAttempt, getQuizAttemptById};
+module.exports = { createAttempt, getQuizAttemptById };
