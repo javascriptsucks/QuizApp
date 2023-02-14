@@ -15,7 +15,7 @@ const createQusFromQusObj = function(question) {
   const sqlParams = [quizId, questionText, answerText];
 
   return db.query(creatTemplate, sqlParams)
-    .then(() => console.log('creat question run'))
+    .then(() => console.log('create question query run'))
     .catch(err => console.error(err.message));
 };
 

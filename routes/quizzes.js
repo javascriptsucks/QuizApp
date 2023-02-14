@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
         quizzes,
         user_name
       };
-      
+
       res.render('quizzes', templateVars);
     })
   ;
@@ -47,7 +47,7 @@ router.post('/new', (req, res) => {
 
   quizzesQueries.createNewQuizzes(quiz)
     .then((quizRes) => {
-      const quizId=quizRes.id;
+      const quizId = quizRes.id;
       // Loop for req.body grap all values
       for (let i = 1; i <= numOfQuestions; i++) {
         const questionText = req.body[`question${i}`];
@@ -77,6 +77,7 @@ router.get('/:quiz_id', (req, res) => {
         questions,
         user_name
       };
+      console.log(templateVars);
       res.render('quizzes_show', templateVars);
     });
 });
