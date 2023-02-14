@@ -44,7 +44,9 @@ const createNewQuizzes = (quiz) => {
   const sqlParams = [userId, title, description, isPublic, numOfQuestions];
 
   return db.query(creatTemplate, sqlParams)
-    .then((res) => console.log(res.rows))
+    .then((res) => {
+      return res.rows[0];
+    })
     .catch(err => console.error(err.message));
 };
 

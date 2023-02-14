@@ -43,14 +43,13 @@ router.post('/new', (req, res) => {
   const quiz = {userId, title, description, isPublic, numOfQuestions};
 
 
-
-
   quizzesQueries.createNewQuizzes(quiz)
-    .then(() => {
-      const quizId = 6;
+    .then((quizRes) => {
+      const quizId = quizRes.id;
       for (let i = 1; i <= numOfQuestions; i++) {
-        const questionText = `hmmmm${i}`;
-        const answerText = 'hmmmm';
+        const questionText = req.body[`question${i}`];
+        const answerText = req.body[`answer${i}`];
+        console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
         const question = {quizId, questionText, answerText};
 
         quizQuestionsQueries.createQusFromQusObj(question)
