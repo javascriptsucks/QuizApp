@@ -12,7 +12,9 @@ const getQuizzes = () => {
   return db.query(queryTemplate)
     .then(data => {
       return data.rows;
-    });
+    })
+    .catch(err => console.error(err.message));
+
 };
 
 
@@ -30,29 +32,33 @@ const getQuizzesQuestionsById = (id) => {
 
   return db.query(queryTemplate, sqlParams)
     .then((res) => {
-      // console.log(res.rows);
       return res.rows;
-    });
+    })
+    .catch(err => console.error(err.message));
+
 };
 
-
-const getQuizAttemptById = (quizAttemptId) => {
-  const queryTemplate = `
-    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
-    FROM quiz_attempts
-    JOIN users ON user_id = users.id
-    JOIN quizzes ON quiz_id = quizzes.id
-    WHERE quiz_attempts.id = $1
+// Insert new quiz into quizzes database
+// Default number of questions as 10, and is_public as true FOR NOW.
+const createNewQuizzes = (quiz) => {
+  const creatTemplate = `
+    INSERT INTO quizzes (creator_id, title, description, is_public, num_of_questions)
+    VALUES
+    ($1, $2, $3, $4, $5)
+    RETURNING *
   ;
   `;
-  const sqlParams = [quizAttemptId];
 
-  return db.query(queryTemplate, sqlParams)
-    .then((data) => {
-      return data.rows[0];
-    });
+  const {userId, title, description, isPublic, numOfQuestions} = quiz;
 
+  const sqlParams = [userId, title, description, isPublic, numOfQuestions];
+
+  return db.query(creatTemplate, sqlParams)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch(err => console.error(err.message));
 };
 
 
-module.exports = { getQuizzes, getQuizzesQuestionsById, getQuizAttemptById };
+module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes};
