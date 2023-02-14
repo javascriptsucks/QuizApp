@@ -38,8 +38,8 @@ router.post('/login', (req, res) => {
 
   userQueries.getUserByEmail(email)
     .then((user) => {
-      const {id, name, hashedPassword} = user;
-
+      const {id, name, password: hashedPassword} = user;
+      console.log(hashedPassword);
       if (bcrypt.compareSync(password, hashedPassword)) {
 
         res.cookie('user_id', id);
