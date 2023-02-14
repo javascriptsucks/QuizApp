@@ -11,7 +11,7 @@ const userQueries = require('../db/queries/users');
 
 
 
-// PATH: /users
+// >>> PATH: /users <<< 
 
 // GET LOGIN PAGE
 router.get('/login', (req, res) => {
@@ -42,6 +42,7 @@ router.post('/logout', (req, res) => {
   res.clearCookie('user_name');
   res.redirect('/');
 });
+
 
 // GET ALL QUIZZES CREATED BY LOGGED-IN USER
 router.get('/:user_id', (req, res) => {
