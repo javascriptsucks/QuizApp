@@ -6,12 +6,13 @@
  */
 
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 const userQueries = require('../db/queries/users');
 
 
 
-// >>> PATH: /users <<< 
+// >>> PATH: /users <<<
 
 // GET LOGIN PAGE
 router.get('/login', (req, res) => {
@@ -26,13 +27,27 @@ router.get('/login', (req, res) => {
 // LOGIN PAGE SUBMIT
 router.post('/login', (req, res) => {
   const email = req.body.emailLogin;
+  const password = req.body.passwordLogin;
+  // const hashedPassword = bcrypt.hashSync(password, 12);
+  // console.log(email, hashedPassword);
+
+  if (!email || !password) {
+    res.render('errorhandle');
+  }
+
+
   userQueries.getUserByEmail(email)
     .then((user) => {
-      const id = user.id;
-      const name = user.name;
-      res.cookie('user_id', id);
-      res.cookie('user_name', name);
-      res.redirect('/quizzes');
+      const {id, name, hashedPassword} = user;
+
+      if (bcrypt.compareSync(password, hashedPassword)) {
+
+        res.cookie('user_id', id);
+        res.cookie('user_name', name);
+        res.redirect('/quizzes');
+      }
+
+      res.render('errorHandle');
     });
 });
 
@@ -60,7 +75,7 @@ router.get('/:user_id', (req, res) => {
 
       res.render('quizzes_user', templateVars);
     })
-    ;
+  ;
 });
 
 module.exports = router;
