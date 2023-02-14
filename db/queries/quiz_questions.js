@@ -1,8 +1,8 @@
 const db = require('../connection');
 
 
-const createQusFromQusObj = function(question) {
-  const creatTemplate = `
+const createQuesFromQuesObj = function(question) {
+  const queryTemplate = `
     INSERT INTO quiz_questions (quiz_id, question_text, answer_text)
     VALUES
     ($1, $2, $3)
@@ -10,12 +10,12 @@ const createQusFromQusObj = function(question) {
   ;
   `;
 
-  const {quizId, questionText, answerText} = question;
+  const { quizId, questionText, answerText } = question;
 
   const sqlParams = [quizId, questionText, answerText];
 
-  return db.query(creatTemplate, sqlParams)
-    .then(() => console.log('creat question run'))
+  return db.query(queryTemplate, sqlParams)
+    .then(() => console.log('create question run'))
     .catch(err => console.error(err.message));
 };
 
@@ -23,4 +23,4 @@ const createQusFromQusObj = function(question) {
 
 
 
-module.exports = {createQusFromQusObj};
+module.exports = { createQuesFromQuesObj };

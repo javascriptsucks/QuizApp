@@ -41,7 +41,7 @@ const getQuizzesQuestionsById = (id) => {
 // Insert new quiz into quizzes database
 // Default number of questions as 10, and is_public as true FOR NOW.
 const createNewQuizzes = (quiz) => {
-  const creatTemplate = `
+  const queryTemplate = `
     INSERT INTO quizzes (creator_id, title, description, is_public, num_of_questions)
     VALUES
     ($1, $2, $3, $4, $5)
@@ -49,11 +49,11 @@ const createNewQuizzes = (quiz) => {
   ;
   `;
 
-  const {userId, title, description, isPublic, numOfQuestions} = quiz;
+  const { userId, title, description, isPublic, numOfQuestions } = quiz;
 
   const sqlParams = [userId, title, description, isPublic, numOfQuestions];
 
-  return db.query(creatTemplate, sqlParams)
+  return db.query(queryTemplate, sqlParams)
     .then((res) => {
       return res.rows[0];
     })
@@ -61,4 +61,4 @@ const createNewQuizzes = (quiz) => {
 };
 
 
-module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes};
+module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes };
