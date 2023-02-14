@@ -29,7 +29,7 @@ const getQuizzesQuestionsById = (id) => {
   const sqlParams = [id];
 
   return db.query(queryTemplate, sqlParams)
-    .then((data) => {
+    .then((res) => {
       // console.log(res.rows);
       return res.rows;
     });
@@ -48,9 +48,11 @@ const getQuizAttemptById = (quizAttemptId) => {
   const sqlParams = [quizAttemptId];
 
   return db.query(queryTemplate, sqlParams)
-    .then()
+    .then((data) => {
+      return data.rows[0];
+    });
 
 };
 
 
-module.exports = { getQuizzes, getQuizzesQuestionsById };
+module.exports = { getQuizzes, getQuizzesQuestionsById, getQuizAttemptById };
