@@ -1,6 +1,11 @@
 <%- include('partials/_header') %>
 
   <main class="flex-fill">
+    <span id="quizzes-user-title">
+      <h1>My Quizzes</h1>
+      <p>See all the quizzes you've created.</p>
+    </span>
+
     <div class="list-group w-75 mx-auto mt-5">
 
       <% for (let i=0; i < quizzes.length; i++) { %>
@@ -19,7 +24,10 @@
             <a href="/quizzes/<%= quizzes[i].id %>" class="btn btn-primary">Attempt This Quiz!</a>
           </div>
           <div class="card-footer text-muted">
-            Quiz with <%= quizzes[i].num_of_questions %> quesitons
+            <% if (quizzes[i].is_public===false ) { %>
+            (Private)
+                <% } %>
+                  Quiz with <%= quizzes[i].num_of_questions %> quesitons
           </div>
         </div>
 
