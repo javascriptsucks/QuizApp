@@ -10,9 +10,9 @@
       </h3>
     </span>
 
-    <form id="quizzes-show-form" action="" method="POST">
+    <form id="quizzes-show-form" action="/quizattempt?quizid=<%= questions[0].quiz_id %>" method="POST">
 
-      <% for (let i=0; i < questions.length; i++) { %>
+      <% for (let i = 0; i < questions.length; i++) { %>
 
         <div class="quizzes-show-questions input-group input-group-sm mb-3">
           <p class="text-justify">
@@ -21,7 +21,7 @@
 
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-sm">Answer:</span>
-            <input name="answer<%= questions[i].id %>" type="text" class="form-control">
+            <input name="answer<%= i+1 %>" type="text" class="form-control">
           </div>
         </div>
 
