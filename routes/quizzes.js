@@ -12,56 +12,34 @@ router.use((req, res, next) => {
 
 // >>> /quizzes
 
-// RENDER SHOW ALL QUIZZES PAGE
+// RENDER SHOW ALL PUBLIC QUIZZES PAGE
 router.get('/', (req, res) => {
-  quizzesQueries.getQuizzes()
+  quizzesQueries.getPublicQuizzes()
     .then((quizzes) => {
-      const user_name = req.cookies.user_name;
-
+      const userName = req.cookies.user_name;
+      const userId = req.cookies.user_id;
       const templateVars = {
         quizzes,
-        user_name
+        userName,
+        userId
       };
 
       res.render('quizzes', templateVars);
-    })
-  ;
+    });
 });
 
 
 
 // RENDER CREATE NEW QUIZ PAGE
 router.get('/new', (req, res) => {
-  res.render('quizzes_new');
-});
-
-// POST CREATE NEW QUIZ PAGE
-router.post('/new', (req, res) => {
   const userId = req.cookies.user_id;
-  const {title, description, isPublic, numOfQuestions} = req.body;
-  if (!userId || !title || !description || !isPublic || !numOfQuestions) {
-    res.render('errorhandle');
-  }
-  const quiz = {userId, title, description, isPublic, numOfQuestions};
+  const userName = req.cookies.user_name;
 
-
-  quizzesQueries.createNewQuizzes(quiz)
-    .then((quizRes) => {
-      const quizId = quizRes.id;
-      // Loop for req.body grap all values
-      for (let i = 1; i <= numOfQuestions; i++) {
-        const questionText = req.body[`question${i}`];
-        const answerText = req.body[`answer${i}`];
-
-        const question = {quizId, questionText, answerText};
-
-        quizQuestionsQueries.createQusFromQusObj(question)
-          .then(() => console.log('Insert data to questions'));
-      }
-
-
-      res.redirect('/');
-    });
+  const templateVars = {
+    userId,
+    userName
+  };
+  res.render('quizzes_new', templateVars);
 });
 
 
@@ -72,14 +50,55 @@ router.get('/:quiz_id', (req, res) => {
   const quizId = req.params.quiz_id;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then((questions) => {
-      const user_name = req.cookies.user_name;
+      const userName = req.cookies.user_name;
+      const userId = req.cookies.user_id;
       const templateVars = {
         questions,
-        user_name
+        userName,
+        userId
       };
       res.render('quizzes_show', templateVars);
     });
 });
+
+
+
+
+// POST CREATE NEW QUIZ PAGE
+router.post('/new', (req, res) => {
+  const userId = req.cookies.user_id;
+  const { title, description, isPublic, numOfQuestions } = req.body;
+
+  if (!userId || !title || !description || !isPublic || !numOfQuestions) {
+    res.render('errorhandle');
+  }
+
+  const quiz = { userId, title, description, isPublic, numOfQuestions };
+
+
+  quizzesQueries.createNewQuizzes(quiz)
+    .then((quizRes) => {
+
+      const quizId = quizRes.id;
+
+      // LOOP THROUGH REQ.BODY, GRAB ALL THE VALUES.
+      for (let i = 1; i <= numOfQuestions; i++) {
+        const questionText = req.body[`question${i}`];
+        const answerText = req.body[`answer${i}`];
+
+        console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
+
+        const question = { quizId, questionText, answerText };
+
+        quizQuestionsQueries.createQuesFromQuesObj(question)
+          .then(() => console.log('Insert data to questions'));
+      }
+
+      res.redirect('/');
+    });
+});
+
+
 
 // router.get()
 

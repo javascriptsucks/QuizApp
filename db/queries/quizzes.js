@@ -1,21 +1,22 @@
 const db = require('../connection');
 
 
-// GET ALL QUIZZES + NAME OF CREATOR
-const getQuizzes = () => {
+// GET ALL PUBLIC QUIZZES + NAME OF CREATOR
+const getPublicQuizzes = () => {
 
   const queryTemplate = `
     SELECT quizzes.*, users.name as creator
     FROM quizzes
-    JOIN users ON creator_id = users.id;
+    JOIN users ON creator_id = users.id
+    WHERE is_public IS TRUE;
   `;
   return db.query(queryTemplate)
     .then(data => {
       return data.rows;
     })
     .catch(err => console.error(err.message));
-
 };
+
 
 
 // GET ALL QUIZ QUESTIONS BY QUIZ_ID + NAME OF CREATOR
@@ -38,10 +39,11 @@ const getQuizzesQuestionsById = (id) => {
 
 };
 
+
 // Insert new quiz into quizzes database
 // Default number of questions as 10, and is_public as true FOR NOW.
 const createNewQuizzes = (quiz) => {
-  const creatTemplate = `
+  const queryTemplate = `
     INSERT INTO quizzes (creator_id, title, description, is_public, num_of_questions)
     VALUES
     ($1, $2, $3, $4, $5)
@@ -49,11 +51,11 @@ const createNewQuizzes = (quiz) => {
   ;
   `;
 
-  const {userId, title, description, isPublic, numOfQuestions} = quiz;
+  const { userId, title, description, isPublic, numOfQuestions } = quiz;
 
   const sqlParams = [userId, title, description, isPublic, numOfQuestions];
 
-  return db.query(creatTemplate, sqlParams)
+  return db.query(queryTemplate, sqlParams)
     .then((res) => {
       return res.rows[0];
     })
@@ -62,4 +64,4 @@ const createNewQuizzes = (quiz) => {
 
 
 
-module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes};
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes};
