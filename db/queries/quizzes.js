@@ -1,20 +1,36 @@
 const db = require('../connection');
 
 
-// GET ALL QUIZZES + NAME OF CREATOR
-const getQuizzes = () => {
+// GET ALL PUBLIC QUIZZES + NAME OF CREATOR
+const getPublicQuizzes = () => {
 
   const queryTemplate = `
     SELECT quizzes.*, users.name as creator
     FROM quizzes
-    JOIN users ON creator_id = users.id;
+    JOIN users ON creator_id = users.id
+    WHERE is_public IS TRUE;
   `;
   return db.query(queryTemplate)
     .then(data => {
       return data.rows;
     })
     .catch(err => console.error(err.message));
+};
 
+// GET ALL QUIZZES CREATED BY A USER
+const getQuizzesByCreator = (userId) => {
+
+  const queryTemplate = `
+    SELECT quizzes.*, users.name as creator
+    FROM quizzes
+    JOIN users ON creator_id = users.id
+    WHERE is_public IS TRUE;
+  `;
+  return db.query(queryTemplate)
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => console.error(err.message));
 };
 
 
@@ -61,4 +77,4 @@ const createNewQuizzes = (quiz) => {
 };
 
 
-module.exports = { getQuizzes, getQuizzesQuestionsById, createNewQuizzes };
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, getQuizzesByCreator };

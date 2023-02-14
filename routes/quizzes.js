@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 
 // RENDER SHOW ALL QUIZZES PAGE
 router.get('/', (req, res) => {
-  quizzesQueries.getQuizzes()
+  quizzesQueries.getPublicQuizzes()
     .then((quizzes) => {
       const user_name = req.cookies.user_name;
 
