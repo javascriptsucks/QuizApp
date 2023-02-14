@@ -21,7 +21,7 @@ const getQuizzes = () => {
 // GET ALL QUIZ QUESTIONS BY QUIZ_ID + NAME OF CREATOR
 const getQuizzesQuestionsById = (id) => {
   const queryTemplate = `
-    SELECT question_text as question, answer_text as answer, quizzes.title as title, users.name as creator, quizzes.id as quiz_id
+    SELECT question_text as question, answer_text as answer, quizzes.title as title, users.name as creator, quizzes.id as quiz_id, quiz_questions.id as question_id
     FROM quiz_questions
     JOIN quizzes ON quizzes.id = quiz_questions.quiz_id
     JOIN users ON creator_id = users.id

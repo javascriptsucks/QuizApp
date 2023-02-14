@@ -4,21 +4,29 @@ const quizzesQueries = require('../db/queries/quizzes');
 const quizAttemptsQueries = require('../db/queries/quiz_attempts');
 
 // quizAttempt post create new attempt rows
-router.post('/', (req, res) => {
+router.post('/?', (req, res) => {
   const userId = req.cookies.user_id;
   const quizId = req.query.quizid;
-  const score = 0;
+  let score = 0;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then(questions => {
-      console.log(`All questions check order: ${questions}`);
-      console.log(`All answers check order: ${req.body}`);
+      const inputAnswer = Object.values(req.body);
+      questions.forEach((question, index) => {
+        console.log(question.answer, question.question_id);
+        if (question.answer.toLowerCase() === inputAnswer[index].toLowerCase()) {
+          score++;
+        }
+      });
+
+      const attempt = {quizId, userId, score};
+      quizAttemptsQueries.createAttempt(attempt)
+        .then(res => console.log(res));
     });
 
 
 
 
-  res.redirect('/');
-  // quizAttemptsQueries.createAttempt(attempt)
+  res.redirect(`/`);
 });
 
 

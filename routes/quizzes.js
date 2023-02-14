@@ -52,7 +52,7 @@ router.post('/new', (req, res) => {
       for (let i = 1; i <= numOfQuestions; i++) {
         const questionText = req.body[`question${i}`];
         const answerText = req.body[`answer${i}`];
-        console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
+
         const question = {quizId, questionText, answerText};
 
         quizQuestionsQueries.createQusFromQusObj(question)
@@ -77,7 +77,6 @@ router.get('/:quiz_id', (req, res) => {
         questions,
         user_name
       };
-      console.log(templateVars);
       res.render('quizzes_show', templateVars);
     });
 });
