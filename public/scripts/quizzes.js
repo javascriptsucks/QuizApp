@@ -41,6 +41,7 @@ $(() => {
   ///////////////////////////////////////////////////////////////////////
   $('.copy-message-quizzes').hide();
 
+
   $('.copy-link-quizzes-btn').on('click', function(e) {
     e.preventDefault();
 
@@ -53,5 +54,13 @@ $(() => {
   ///////////////////////////////////////////////////////////////////////
   // EVENT LISTENER FOR COPY LINK BUTTON - QUIZ ATTEMPT PAGE
   ///////////////////////////////////////////////////////////////////////
+  $('.copy-message-attempt').hide();
+
+  $('.copy-link-attempt-btn').on('click', function(e) {
+    e.preventDefault();
+
+    navigator.clipboard.writeText($(this).siblings('.hidden-link-attempt').html());
+    $(this).siblings('.copy-message-attempt').fadeIn(300);
+  });
 
 });

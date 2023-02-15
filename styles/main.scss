@@ -56,3 +56,16 @@ body {
 .copy-link-quizzes-btn {
   margin-right: 0.3em;
 }
+
+#attempt-copy-link-container {
+  height: 75px;
+  margin-top: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.copy-link-attempt-btn {
+  margin-bottom: 0.3em
+}

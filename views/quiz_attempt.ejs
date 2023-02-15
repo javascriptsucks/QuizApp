@@ -7,6 +7,12 @@
       <hr class="my-4">
       <p>Feel like taking another crack at it? Hit that button below and see a whole list of quizzes!</p>
       <a class="btn btn-primary btn-lg" href="/quizzes" role="button">Show Me More!</a>
+      <span id="attempt-copy-link-container">
+        <p hidden class="hidden-link-attempt">localhost:8080/quizAttempt/<%= attempt.id %>
+        </p>
+        <button class="copy-link-attempt-btn btn btn-primary">Copy Link To Share Results</button>
+        <span class="copy-message-attempt">Copied!</span>
+      </span>
     </div>
   </main>
 
