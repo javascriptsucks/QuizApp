@@ -20,11 +20,10 @@ router.get('/:attempt_id', (req, res) => {
 
 // POST to create new attempt rows in DB
 router.post('/', (req, res) => {
-  console.log('req.body:', req.body);
-
   const userId = req.cookies.user_id;
   const quizId = req.body.quiz_id;
   let score = 0;
+
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then(questions => {
       const inputAnswer = Object.values(req.body);
