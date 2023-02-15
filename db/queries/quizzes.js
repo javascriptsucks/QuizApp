@@ -8,7 +8,8 @@ const getPublicQuizzes = () => {
     SELECT quizzes.*, users.name as creator
     FROM quizzes
     JOIN users ON creator_id = users.id
-    WHERE is_public IS TRUE;
+    WHERE is_public IS TRUE
+    ORDER BY quizzes.id DESC;
   `;
   return db.query(queryTemplate)
     .then(data => {

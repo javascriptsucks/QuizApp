@@ -47,7 +47,7 @@ const createNewUser = (user) => {
   ;
   `;
 
-  const { name, email, password} = user;
+  const { name, email, password } = user;
 
   const sqlParams = [name, email, password];
 
@@ -65,7 +65,8 @@ const getQuizzesByCreator = (userId) => {
     SELECT quizzes.*, users.name as creator
     FROM quizzes
     JOIN users ON creator_id = users.id
-    WHERE creator_id = $1;
+    WHERE creator_id = $1
+    ORDER BY quizzes.id DESC;
   `;
   const sqlParams = [userId];
 
