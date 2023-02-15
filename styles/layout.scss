@@ -5,6 +5,14 @@ html {
   margin: 0;
 }
 
+#home-page-button-container {
+  width: 80%;
+  margin-top: 2em;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #quizzes-all-title {
   text-align: center;
 }
