@@ -24,7 +24,9 @@ router.get('/login', (req, res) => {
 
 // LOGIN PAGE SUBMIT
 router.post('/login', (req, res) => {
-  const email = req.body.emailLogin;
+
+  //EMAIL SHOULD NOT BE CASE SENSITIVE
+  const email = req.body.emailLogin.toLowerCase();
   const password = req.body.passwordLogin;
 
 
@@ -67,7 +69,9 @@ router.get('/register', (req, res) => {
 // POST SIGN UP SUBMIT
 
 router.post('/register', (req, res) => {
-  const {name, email, password, passwordConfirm} = req.body;
+  let {name, email, password, passwordConfirm} = req.body;
+  //EMAIL SHOULD NOT BE CASE SENSITIVE
+  email = email.toLowerCase();
 
   if (!name || !email || !password || !passwordConfirm) {
     return res.render('errorHandle');

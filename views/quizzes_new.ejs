@@ -40,7 +40,7 @@
             <div class="form-group col-md-6">
               <label>Number Of Questions In Quiz </label>
 
-              <select name="numOfQuestions" class="custom-select custom-select-md">
+              <select id="new-quiz-number" name="numOfQuestions" class="custom-select custom-select-md">
                 <option selected>Open this select menu</option>
                 <option value=5>5</option>
                 <option value=10>10</option>
@@ -50,27 +50,8 @@
             </div>
           </div>
         </div>
-        <div id="new-quiz-content">
-          <span>
-            <h4><u>Fill Out Questions Here:</u></h4>
-          </span>
+        <div id="new-quiz-content" class="none">
 
-
-          <% for (let i=1; i <=10; i++ ) { %>
-
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>Question <%= i %></label>
-                <input name="question<%= i %>" type="text" class="form-control">
-              </div>
-              <div class="form-group col-md-6">
-                <label>Answer</label>
-                <input name="answer<%= i %>" type="text" class="form-control">
-              </div>
-            </div>
-
-            <% } %>
-              <button type="submit" class="btn btn-primary">Submit New Quiz</button>
         </div>
       </form>
     </div>

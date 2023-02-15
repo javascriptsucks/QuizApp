@@ -21,7 +21,7 @@
             <p class="card-text">
               <%= quizzes[i].description %>
             </p>
-            <a href="/quizzes/<%= quizzes[i].id %>" class="btn btn-primary">Attempt This Quiz!</a>
+            <a href="/quizzes/update/<%= quizzes[i].id %>" class="btn btn-primary">Edit This Quiz!</a>
           </div>
           <div class="card-footer text-muted">
             <% if (quizzes[i].is_public===false ) { %>

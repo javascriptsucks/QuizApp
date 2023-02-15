@@ -14,10 +14,10 @@ router.use((req, res, next) => {
 
 // RENDER SHOW ALL PUBLIC QUIZZES PAGE
 router.get('/', (req, res) => {
+  const userId = req.session.user_id;
   quizzesQueries.getPublicQuizzes()
     .then((quizzes) => {
       const userName = req.session.user_name;
-      const userId = req.session.user_id;
       const templateVars = {
         quizzes,
         userName,
@@ -42,7 +42,21 @@ router.get('/new', (req, res) => {
   res.render('quizzes_new', templateVars);
 });
 
-
+// RENDER UPDATE QUIZ PAGE
+router.get('/update/:quiz_id', (req, res) => {
+  const userId = req.session.user_id;
+  const userName = req.session.user_name;
+  const quizId = req.params.quiz_id;
+  quizzesQueries.getQuizzesQuestionsById(quizId)
+    .then(response => {
+      console.log(response);
+      const templateVars = {
+        userId,
+        userName
+      };
+      res.render('quizzes_update', templateVars);
+    });
+});
 
 
 // RENDER INDIVIDUAL QUIZ PAGE
