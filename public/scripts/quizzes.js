@@ -36,17 +36,22 @@ const flexRenderInputs = function() {
 $(() => {
   flexRenderInputs();
 
-  // EVENT LISTENER FOR COPY LINK BUTTONS
+  ///////////////////////////////////////////////////////////////////////
+  // EVENT LISTENER FOR COPY LINK BUTTONS - HOME PAGE/MY QUIZZES PAGE
+  ///////////////////////////////////////////////////////////////////////
+  $('.copy-message-quizzes').hide();
 
-  $('.copy-message').hide();
-
-  $('.copy-link').on('click', function(e) {
+  $('.copy-link-quizzes-btn').on('click', function(e) {
     e.preventDefault();
 
-    $('.copy-message').fadeOut(300);
+    $('.copy-message-quizzes').fadeOut(300);
 
-    navigator.clipboard.writeText($(this).siblings('.hidden-link').html());
-    $(this).siblings('.copy-message').fadeIn(300);
+    navigator.clipboard.writeText($(this).siblings('.hidden-link-quizzes').html());
+    $(this).siblings('.copy-message-quizzes').fadeIn(300);
   });
+
+  ///////////////////////////////////////////////////////////////////////
+  // EVENT LISTENER FOR COPY LINK BUTTON - QUIZ ATTEMPT PAGE
+  ///////////////////////////////////////////////////////////////////////
 
 });
