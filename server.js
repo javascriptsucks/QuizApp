@@ -9,7 +9,8 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -23,7 +24,10 @@ app.set('view engine', 'ejs');
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
-app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.COOKIE_SESSION_SECRET]
+}));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -79,14 +83,14 @@ app.use('/quizAttempt', quizAttemptRoutes);
 // LANDING PAGE: REDIRECT TO SHOW ALL QUIZZES IF LOGGED IN;
 app.get('/', (req, res) => {
 
-  if (req.cookies.user_id) {
+  if (req.session.user_id) {
     return res.redirect('/quizzes');
   }
 
   return res.render('index');
 
   // TRIAL CODE
-  // const user_id = req.cookies.user_id;
+  // const user_id = req.session.user_id;
   // console.log(user_id)
   // let templateVars = {};
   // if (user_id) {

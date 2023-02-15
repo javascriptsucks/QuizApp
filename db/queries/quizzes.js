@@ -27,6 +27,7 @@ const getQuizzesQuestionsById = (id) => {
     JOIN quizzes ON quizzes.id = quiz_questions.quiz_id
     JOIN users ON creator_id = users.id
     WHERE quizzes.id = $1
+    ORDER BY quiz_questions.id
   ;
   `;
   const sqlParams = [id];
