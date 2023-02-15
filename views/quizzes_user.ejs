@@ -24,10 +24,15 @@
             <a href="/quizzes/<%= quizzes[i].id %>" class="btn btn-primary">Attempt This Quiz!</a>
           </div>
           <div class="card-footer text-muted">
-            <% if (quizzes[i].is_public===false ) { %>
-              (Private)
-              <% } %>
-                Quiz with <%= quizzes[i].num_of_questions %> quesitons
+            <span>
+              <button class="btn btn-primary">Copy Link</button>
+            </span>
+            <span>
+              <% if (quizzes[i].is_public===false ) { %>
+                (Private)
+                <% } %>
+                  Quiz with <%= quizzes[i].num_of_questions %> quesitons
+            </span>
           </div>
         </div>
 
