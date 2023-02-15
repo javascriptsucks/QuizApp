@@ -8,10 +8,17 @@ const quizAttemptsQueries = require('../db/queries/quiz_attempts');
 // GET to render quiz_attempt page with info from db query.
 router.get('/:attempt_id', (req, res) => {
   const attemptID = req.params.attempt_id;
+  const userId = req.session.user_id;
+  const userName = req.session.user_name;
 
   quizAttemptsQueries.getQuizAttemptById(attemptID)
     .then(attempt => {
-      return res.render('quiz_attempt', { attempt });
+      const templateVars = {
+        userId,
+        userName,
+        attempt
+      };
+      return res.render('quiz_attempt', templateVars);
     });
 
 });
@@ -33,7 +40,7 @@ router.post('/', (req, res) => {
         }
       });
 
-      const attempt = {quizId, userId, score};
+      const attempt = { quizId, userId, score };
       console.log(attempt);
       quizAttemptsQueries.createAttempt(attempt)
         .then(response => {
