@@ -14,10 +14,10 @@ router.use((req, res, next) => {
 
 // RENDER SHOW ALL PUBLIC QUIZZES PAGE
 router.get('/', (req, res) => {
-  quizzesQueries.getPublicQuizzes()
+  const userId = req.session.user_id;
+  quizzesQueries.getPublicQuizzes(userId)
     .then((quizzes) => {
       const userName = req.session.user_name;
-      const userId = req.session.user_id;
       const templateVars = {
         quizzes,
         userName,

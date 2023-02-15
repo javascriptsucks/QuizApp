@@ -2,15 +2,17 @@ const db = require('../connection');
 
 
 // GET ALL PUBLIC QUIZZES + NAME OF CREATOR
-const getPublicQuizzes = () => {
+const getPublicQuizzes = (loggedId) => {
 
   const queryTemplate = `
     SELECT quizzes.*, users.name as creator
     FROM quizzes
     JOIN users ON creator_id = users.id
-    WHERE is_public IS TRUE;
+    WHERE is_public IS TRUE
+    AND creator_id != $1;
   `;
-  return db.query(queryTemplate)
+  const sqlParams = [loggedId];
+  return db.query(queryTemplate, sqlParams)
     .then(data => {
       return data.rows;
     })
