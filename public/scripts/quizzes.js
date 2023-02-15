@@ -36,4 +36,12 @@ const flexRenderInputs = function() {
 $(() => {
   flexRenderInputs();
 
+  // EVENT LISTENER FOR COPY LINK BUTTONS
+  $('.copy-link').on('click', function(e) {
+    e.preventDefault();
+
+    navigator.clipboard.writeText($(this).siblings('.hidden-link').html());
+    $(this).html("Copied!");
+  });
+
 });
