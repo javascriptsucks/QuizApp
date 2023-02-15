@@ -21,20 +21,18 @@ router.get('/login', (req, res) => {
   }
   const userId = req.cookies.user_id;
   const userName = req.cookies.user_name;
-  res.render('login', { userId, userName });
+  res.render('users_login', { userId, userName });
 });
 
 // LOGIN PAGE SUBMIT
 router.post('/login', (req, res) => {
   const email = req.body.emailLogin;
   const password = req.body.passwordLogin;
-  // const hashedPassword = bcrypt.hashSync(password, 12);
-  // console.log(email, hashedPassword);
+
 
   if (!email || !password) {
-    res.render('errorhandle');
+    return res.render('errorhandle');
   }
-
 
   userQueries.getUserByEmail(email)
     .then((user) => {
@@ -44,11 +42,47 @@ router.post('/login', (req, res) => {
 
         res.cookie('user_id', id);
         res.cookie('user_name', name);
-        res.redirect('/quizzes');
+        return res.redirect('/quizzes');
       }
 
-      res.render('errorHandle');
+      return res.render('errorHandle');
     });
+});
+
+
+// GET SIGN UP PAGE
+
+router.get('/register', (req, res) => {
+  if (req.cookies.user_id) {
+    return res.redirect('/quizzes');
+  }
+  const userId = req.cookies.user_id;
+  const userName = req.cookies.user_name;
+  res.render('users_register', { userId, userName });
+});
+
+// POST SIGN UP SUBMIT
+
+router.post('/register', (req, res) => {
+  const {name, email, password, passwordConfirm} = req.body;
+
+  if (!name || !email || !password || !passwordConfirm) {
+    return res.render('errorHandle');
+  }
+  if (password !== passwordConfirm) {
+    return res.render('errorHandle');
+  }
+  const hashedPassword = bcrypt.hashSync(password, 12);
+  console.log(email, hashedPassword);
+  const user = {name, email, password: hashedPassword};
+  userQueries.createNewUser(user)
+    .then((response) => {
+      console.log(response);
+      res.clearCookie('user_id');
+      res.clearCookie('user_name');
+      return res.redirect('/');
+    });
+
 });
 
 // LOGOUT BUTTON SUBMIT
