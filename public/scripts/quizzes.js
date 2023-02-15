@@ -37,11 +37,16 @@ $(() => {
   flexRenderInputs();
 
   // EVENT LISTENER FOR COPY LINK BUTTONS
+
+  $('.copy-message').hide();
+
   $('.copy-link').on('click', function(e) {
     e.preventDefault();
 
+    $('.copy-message').fadeOut(300);
+
     navigator.clipboard.writeText($(this).siblings('.hidden-link').html());
-    $(this).html("Copied!");
+    $(this).siblings('.copy-message').fadeIn(300);
   });
 
 });
