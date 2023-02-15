@@ -16,12 +16,10 @@ const userQueries = require('../db/queries/users');
 
 // GET LOGIN PAGE
 router.get('/login', (req, res) => {
-  if (req.cookies.user_id) {
+  if (req.session.user_id) {
     return res.redirect('/quizzes');
   }
-  const userId = req.cookies.user_id;
-  const userName = req.cookies.user_name;
-  res.render('users_login', { userId, userName });
+  res.render('users_login');
 });
 
 // LOGIN PAGE SUBMIT
@@ -36,15 +34,20 @@ router.post('/login', (req, res) => {
 
   userQueries.getUserByEmail(email)
     .then((user) => {
+      // IF user not exist or random input email password
+      // Render error
+      if (!user) {
+        return res.render('errorHandle');
+      }
+      // IF user exist and password match: return session
       const {id, name, password: hashedPassword} = user;
-      console.log(hashedPassword);
       if (bcrypt.compareSync(password, hashedPassword)) {
 
-        res.cookie('user_id', id);
-        res.cookie('user_name', name);
+        req.session['user_id'] =  id;
+        req.session['user_name'] = name;
         return res.redirect('/quizzes');
       }
-
+      // IF password not match return error
       return res.render('errorHandle');
     });
 });
@@ -53,12 +56,12 @@ router.post('/login', (req, res) => {
 // GET SIGN UP PAGE
 
 router.get('/register', (req, res) => {
-  if (req.cookies.user_id) {
+  if (req.session.user_id) {
     return res.redirect('/quizzes');
   }
-  const userId = req.cookies.user_id;
-  const userName = req.cookies.user_name;
-  res.render('users_register', { userId, userName });
+  // const userId = req.session.user_id;
+  // const userName = req.session.user_name;
+  res.render('users_register');
 });
 
 // POST SIGN UP SUBMIT
@@ -78,17 +81,17 @@ router.post('/register', (req, res) => {
   userQueries.createNewUser(user)
     .then((response) => {
       console.log(response);
-      res.clearCookie('user_id');
-      res.clearCookie('user_name');
-      return res.redirect('/');
+      req.session['user_id'] = response.id;
+      req.session['user_name'] = name;
+      return res.redirect('/quizzes');
     });
 
 });
 
 // LOGOUT BUTTON SUBMIT
 router.post('/logout', (req, res) => {
-  res.clearCookie('user_id');
-  res.clearCookie('user_name');
+  req.session['user_id'] = null;
+  req.session['user_name'] = null;
   res.redirect('/');
 });
 
@@ -99,7 +102,7 @@ router.get('/:user_id', (req, res) => {
 
   userQueries.getQuizzesByCreator(userId)
     .then((quizzes) => {
-      const userName = req.cookies.user_name;
+      const userName = req.session.user_name;
 
       const templateVars = {
         quizzes,

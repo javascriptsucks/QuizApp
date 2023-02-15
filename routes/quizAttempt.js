@@ -5,7 +5,7 @@ const quizAttemptsQueries = require('../db/queries/quiz_attempts');
 
 // quizAttempt post create new attempt rows
 router.post('/', (req, res) => {
-  const userId = req.cookies.user_id;
+  const userId = req.session.user_id;
   const quizId = req.query.quizid;
   let score = 0;
   quizzesQueries.getQuizzesQuestionsById(quizId)

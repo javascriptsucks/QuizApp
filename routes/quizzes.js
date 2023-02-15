@@ -4,7 +4,7 @@ const quizzesQueries = require('../db/queries/quizzes');
 const quizQuestionsQueries = require('../db/queries/quiz_questions');
 
 router.use((req, res, next) => {
-  if (!req.cookies.user_id) {
+  if (!req.session.user_id) {
     return res.redirect('/');
   }
   next();
@@ -16,8 +16,8 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   quizzesQueries.getPublicQuizzes()
     .then((quizzes) => {
-      const userName = req.cookies.user_name;
-      const userId = req.cookies.user_id;
+      const userName = req.session.user_name;
+      const userId = req.session.user_id;
       const templateVars = {
         quizzes,
         userName,
@@ -32,8 +32,8 @@ router.get('/', (req, res) => {
 
 // RENDER CREATE NEW QUIZ PAGE
 router.get('/new', (req, res) => {
-  const userId = req.cookies.user_id;
-  const userName = req.cookies.user_name;
+  const userId = req.session.user_id;
+  const userName = req.session.user_name;
 
   const templateVars = {
     userId,
@@ -50,8 +50,8 @@ router.get('/:quiz_id', (req, res) => {
   const quizId = req.params.quiz_id;
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then((questions) => {
-      const userName = req.cookies.user_name;
-      const userId = req.cookies.user_id;
+      const userName = req.session.user_name;
+      const userId = req.session.user_id;
       const templateVars = {
         questions,
         userName,
@@ -66,7 +66,7 @@ router.get('/:quiz_id', (req, res) => {
 
 // POST CREATE NEW QUIZ PAGE
 router.post('/new', (req, res) => {
-  const userId = req.cookies.user_id;
+  const userId = req.session.user_id;
   const { title, description, isPublic, numOfQuestions } = req.body;
 
   if (!userId || !title || !description || !isPublic || !numOfQuestions) {
