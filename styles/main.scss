@@ -25,7 +25,12 @@ body {
 
 .list-group .card {
   background: transparent;
-  border: 2px solid #1E2640
+  border: 2px solid #1E2640;
+}
+
+.list-group .card:hover {
+  box-shadow: 7px 7px 7px #1E2640;
+  transition: 0.3s;
 }
 
 .index-page .jumbotron {
