@@ -25,7 +25,10 @@
           </div>
           <div class="card-footer text-muted">
             <span>
+              <p hidden class="hidden-link">localhost:8080/quizzes/<%= quizzes[i].id %>
+              </p>
               <button class="copy-link btn btn-primary">Copy Link</button>
+              <span class="copy-message">Copied!</span>
             </span>
             <span>
               <% if (quizzes[i].is_public===false ) { %>
