@@ -76,11 +76,9 @@ router.post('/register', (req, res) => {
     return res.render('errorHandle');
   }
   const hashedPassword = bcrypt.hashSync(password, 12);
-  console.log(email, hashedPassword);
   const user = {name, email, password: hashedPassword};
   userQueries.createNewUser(user)
     .then((response) => {
-      console.log(response);
       req.session['user_id'] = response.id;
       req.session['user_name'] = name;
       return res.redirect('/quizzes');

@@ -12,7 +12,6 @@ router.post('/', (req, res) => {
     .then(questions => {
       const inputAnswer = Object.values(req.body);
       questions.forEach((question, index) => {
-        console.log(question.answer, question.question_id);
         if (question.answer.toLowerCase() === inputAnswer[index].toLowerCase()) {
           score++;
         }
@@ -21,7 +20,6 @@ router.post('/', (req, res) => {
       const attempt = {quizId, userId, score};
       quizAttemptsQueries.createAttempt(attempt)
         .then(response => {
-          console.log(response);
           res.redirect(`/quizAttempt/${response.id}`);
         });
     });

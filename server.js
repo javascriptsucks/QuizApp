@@ -9,7 +9,6 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
-// const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 
 
@@ -91,7 +90,7 @@ app.get('/', (req, res) => {
   return res.render('index');
 
   // TRIAL CODE
-  // const user_id = req.cookies.user_id;
+  // const user_id = req.session.user_id;
   // console.log(user_id)
   // let templateVars = {};
   // if (user_id) {
