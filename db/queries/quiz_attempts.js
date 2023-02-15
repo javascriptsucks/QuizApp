@@ -4,7 +4,7 @@ const db = require('../connection');
 
 const getQuizAttemptById = (quizAttemptId) => {
   const queryTemplate = `
-    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title
+    SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title, quizzes.num_of_questions as num_of_questions
     FROM quiz_attempts
     JOIN users ON user_id = users.id
     JOIN quizzes ON quiz_id = quizzes.id
