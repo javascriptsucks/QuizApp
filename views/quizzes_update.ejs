@@ -1,7 +1,69 @@
 <%- include('partials/_header') %>
 
   <main class="flex-fill">
+    <div class="container w-75">
+      <div id="new-quiz-title">
+        <h1>Edit The Quiz!</h1>
+        <p>Please fill out EVERY field below before you hit SUBMIT.</p>
+      </div>
+      <form action="/quizzes/update/:quiz_id" method="POST">
+        <div id="new-quiz-info">
+          <span>
+            <h4><u>Basic Info:</u></h4>
+          </span>
 
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Quiz Title</label>
+              <input name="title" type="text" class="form-control" value="<%= response[0].title %>">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Quiz Description</label>
+              <input name="description" type="text" class="form-control" value="<%= response[0].description%>">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Is This Quiz Public? </label>
+
+              <select name="isPublic" class="custom-select custom-select-md" value="<%= response[0].is_public %>">
+
+                <% if(response[0].is_public) { %>
+                    <option selected>Open this select menu</option>
+                    <option selected value=true>YES!</option>
+                    <option value=false>NO!</option>
+                <%  } else { %>
+                    <option selected>Open this select menu</option>
+                    <option value=true>YES!</option>
+                    <option selected value=false>NO!</option>
+                <% } %>
+              </select>
+
+            </div>
+
+
+            <div class="form-group col-md-6">
+              <label>Number Of Questions In Quiz </label>
+
+              <select id="new-quiz-number" name="numOfQuestions" class="custom-select custom-select-md">
+                <option selected>Open this select menu</option>
+                <option value=5>5</option>
+                <option value=10>10</option>
+                <option value=15>15</option>
+                <option value=20>20</option>
+                <option value=25>25</option>
+                <option value=30>30</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
+        <div id="new-quiz-content" class="none">
+
+        </div>
+      </form>
+    </div>
   </main>
 
 <%- include('partials/_footer') %>

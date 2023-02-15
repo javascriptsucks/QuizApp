@@ -1,6 +1,6 @@
 // Client facing scripts here
-$(() => {
 
+const flexRenderInputs = function() {
   $('#new-quiz-number').on('change', function(e) {
 
     const selectVal = this.value;
@@ -21,8 +21,6 @@ $(() => {
       `;
     }
 
-    console.log(loopInput);
-
     const renderInput = `
           <span>
             <h4><u>Fill Out Questions Here:</u></h4>
@@ -33,5 +31,9 @@ $(() => {
     $('#new-quiz-content').removeAttr('style').empty().append(renderInput).stop().slideDown();
   });
 
+};
+
+$(() => {
+  flexRenderInputs();
 
 });

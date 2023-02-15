@@ -51,6 +51,7 @@ router.get('/update/:quiz_id', (req, res) => {
     .then(response => {
       console.log(response);
       const templateVars = {
+        response,
         userId,
         userName
       };
