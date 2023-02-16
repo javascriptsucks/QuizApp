@@ -28,8 +28,10 @@ app.use(cookieSession({
   name: 'session',
   keys: [process.env.COOKIE_SESSION_SECRET]
 }));
+
+app.use(express.json({ limit: '10kb' }));
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(
   '/styles',
   sassMiddleware({

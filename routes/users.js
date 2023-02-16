@@ -6,7 +6,9 @@
  */
 
 const express = require('express');
+const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
+
 const router = express.Router();
 const userQueries = require('../db/queries/users');
 
@@ -23,36 +25,44 @@ router.get('/login', (req, res) => {
 });
 
 // LOGIN PAGE SUBMIT
-router.post('/login', (req, res) => {
+router.post('/login',
+  // USER INPUT VALIDATION
+  body('emailLogin').isEmail(),
+  body('passwordLogin').isLength({min: 7}),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      const templateVars = {
+        errorMsg: errors.array()[0].msg
+      };
+      return res.status(400).render('errorHandle', templateVars);
+    }
 
-  //EMAIL SHOULD NOT BE CASE SENSITIVE
-  const email = req.body.emailLogin.toLowerCase();
-  const password = req.body.passwordLogin;
+    //EMAIL SHOULD NOT BE CASE SENSITIVE
+    const email = req.body.emailLogin.toLowerCase();
+    const password = req.body.passwordLogin;
 
-
-  if (!email || !password) {
-    return res.render('errorhandle');
-  }
-
-  userQueries.getUserByEmail(email)
-    .then((user) => {
+    userQueries.getUserByEmail(email)
+      .then((user) => {
       // IF user not exist or random input email password
       // Render error
-      if (!user) {
-        return res.render('errorHandle');
-      }
-      // IF user exist and password match: return session
-      const {id, name, password: hashedPassword} = user;
-      if (bcrypt.compareSync(password, hashedPassword)) {
+        if (!user) {
 
-        req.session['user_id'] =  id;
-        req.session['user_name'] = name;
-        return res.redirect('/quizzes');
-      }
-      // IF password not match return error
-      return res.render('errorHandle');
-    });
-});
+          return res.render('errorHandle', {errorMsg: 'SORRY, CAN NOT FIND USER, PLEASE TRY AGAIN. '});
+        }
+        // IF user exist and password match: return session
+        const {id, name, password: hashedPassword} = user;
+        if (bcrypt.compareSync(password, hashedPassword)) {
+
+          req.session['user_id'] =  id;
+          req.session['user_name'] = name;
+          return res.redirect('/quizzes');
+        }
+        // IF password not match return error
+        return res.render('errorHandle', {errorMsg: 'SORRY, INVALID INPUT VALUE, PLEASE TRY AGAIN. '});
+      });
+  });
 
 
 // GET SIGN UP PAGE
@@ -68,27 +78,36 @@ router.get('/register', (req, res) => {
 
 // POST SIGN UP SUBMIT
 
-router.post('/register', (req, res) => {
-  let {name, email, password, passwordConfirm} = req.body;
-  //EMAIL SHOULD NOT BE CASE SENSITIVE
-  email = email.toLowerCase();
+router.post('/register',
+  body('name').isLength({ min: 2 }).trim().escape(),
+  body('email').isEmail().normalizeEmail(),
+  body('password').isLength({min: 7}),
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      const templateVars = {
+        errorMsg: errors.array()[0].msg
+      };
+      return res.status(400).render('errorHandle', templateVars);
+    }
+    let {name, email, password, passwordConfirm} = req.body;
+    //EMAIL SHOULD NOT BE CASE SENSITIVE
+    email = email.toLowerCase();
 
-  if (!name || !email || !password || !passwordConfirm) {
-    return res.render('errorHandle');
-  }
-  if (password !== passwordConfirm) {
-    return res.render('errorHandle');
-  }
-  const hashedPassword = bcrypt.hashSync(password, 12);
-  const user = {name, email, password: hashedPassword};
-  userQueries.createNewUser(user)
-    .then((response) => {
-      req.session['user_id'] = response.id;
-      req.session['user_name'] = name;
-      return res.redirect('/quizzes');
-    });
+    if (password !== passwordConfirm) {
+      return res.render('errorHandle', {errorMsg: 'PASSWORD WAS NOT THE SAME, PLEASE TRY AGAIN. '});
+    }
+    const hashedPassword = bcrypt.hashSync(password, 12);
+    const user = {name, email, password: hashedPassword};
+    userQueries.createNewUser(user)
+      .then((response) => {
+        req.session['user_id'] = response.id;
+        req.session['user_name'] = name;
+        return res.redirect('/quizzes');
+      });
 
-});
+  });
 
 // LOGOUT BUTTON SUBMIT
 router.post('/logout', (req, res) => {
