@@ -67,6 +67,7 @@ router.get('/update/:quiz_id', (req, res) => {
 
 router.post('/update/:quiz_id', (req, res) => {
   for (const key in req.body) {
+    console.log('Loop Over Req Body', key, req.body[key]);
     if (req.body[key] === '') {
       if (key.startsWith('question_id')) {
         continue;
