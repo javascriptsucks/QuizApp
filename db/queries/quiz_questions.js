@@ -28,10 +28,10 @@ const updateQuesFromQuesObj = function(question) {
     RETURNING *
   ;
   `;
-  const { quizId, questionText, answerText } = question;
+  const { questionText, answerText, questionId } = question;
 
-  const sqlParams = [quizId, questionText, answerText];
-
+  const sqlParams = [questionText, answerText, questionId];
+  console.log(`Query side value get: ${question}, ${sqlParams}`);
   return db.query(queryTemplate, sqlParams)
     .then((res) => res.rows[0])
     .catch(err => console.error(err.message));
