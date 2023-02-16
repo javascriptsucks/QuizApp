@@ -15,5 +15,7 @@ router.get('/update/:quiz_id', (req, res) => {
         .json({ error: err.message });
     });
 });
+const quizAttemptsQueries = require('../db/queries/quiz_attempts');
+
 
 module.exports = router;

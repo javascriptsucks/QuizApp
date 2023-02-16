@@ -42,6 +42,8 @@ router.get('/new', (req, res) => {
   res.render('quizzes_new', templateVars);
 });
 
+
+
 // RENDER UPDATE QUIZ PAGE
 router.get('/update/:quiz_id', (req, res) => {
   const userId = req.session.user_id;
@@ -133,6 +135,7 @@ router.post('/update/:quiz_id', (req, res) => {
       res.redirect('/');
     });
 });
+
 
 
 

@@ -2,21 +2,21 @@
 
   <main class="flex-fill">
 
-    <div class="modal" tabindex="-1">
+    <!-- Vertically centered modal -->
+    <div class="attempts-modal modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Previous Attempts</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Modal body text goes here.</p>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -30,25 +30,6 @@
     <div class="list-group w-75 mx-auto mt-5">
 
       <% for (let i=0; i < quizzes.length; i++) { %>
-        <!-- Vertically centered modal -->
-        <div class="attempts-modal modal" tabindex="-1">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="card text-center mt-2 mb-2">
           <div class="card-header">
@@ -70,14 +51,18 @@
             <a href="/quizzes/update/<%= quizzes[i].id %>" class="btn btn-primary">Edit This Quiz!</a>
           </div>
           <div class="card-footer text-muted">
+
             <span>
               <p hidden class="hidden-link-quizzes">localhost:8080/quizzes/<%= quizzes[i].id %>
               </p>
               <button class="copy-link-quizzes-btn btn btn-primary">Copy Link</button>
               <span class="copy-message-quizzes">Copied!</span>
             </span>
-            <a href="#" data-toggle="modal" data-target=".attempts-modal" class="attempts-modal-btn btn btn-primary">See
-              Previous Attempts</a>
+            <span>
+              <a href="#" data-toggle="modal" data-target=".attempts-modal"
+                class="attempts-modal-btn btn btn-primary">See
+                Previous Attempts</a>
+            </span>
           </div>
         </div>
 
