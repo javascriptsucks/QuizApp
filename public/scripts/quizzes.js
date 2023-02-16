@@ -1,4 +1,11 @@
 // Client facing scripts here
+// USER INPUT ESCAPE
+const escapeFnc = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 
 const getQusByIdAndRender = function(quizId) {
   $('#new-quiz-number').on('change', function(e) {
@@ -9,14 +16,15 @@ const getQusByIdAndRender = function(quizId) {
       let loopInput = '';
       const {questions: res} = questions;
       for (let i = 1; i <= selectVal; i++) {
-        let question=(typeof res[i-1]?.question==='undefined')? '':res[i-1].question;
-        let questionEscap=$('<div/>').text(question).html();
-        console.log(questionEscap);
-        let answer = (typeof res[i - 1]?.answer === 'undefined') ? '' : res[i - 1].answer;
-        console.log(question, answer);
+        let question=(typeof res[i-1]?.question=== 'undefined') ? '' : res [i-1].question;
+        question = escapeFnc(question);
+        let answer=(typeof res[i-1]?.answer==='undefined')? '':res[i-1].answer;
+        let questionId = (typeof res[i-1]?.question_id === 'undefined') ? '' : res [i-1].question_id;
+        answer = escapeFnc(answer);
         loopInput += `
         <div class="form-row">
           <div class="form-group col-md-6">
+            <p name="question_id" type="hidden" value="${questionId}">
             <label>Question ${i}</label>
             <input name="question${i}" type="text" class="form-control" value="${question}">
           </div>
@@ -51,7 +59,6 @@ const flexRenderInputs = function() {
 
     let loopInput = '';
 
-    if (questions) {
       for (let i = 1; i <= selectVal; i++) {
         loopInput += `
           <div class="form-row">
@@ -66,7 +73,6 @@ const flexRenderInputs = function() {
           </div>
         `;
       }
-    }
 
     const renderInput = `
           <span>
