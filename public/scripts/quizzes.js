@@ -1,5 +1,3 @@
-// Client facing scripts here
-
 
 $(() => {
   // GET PATHNAME
@@ -147,4 +145,5 @@ const flexRenderInputs = function() {
   });
 
 };
+
 
