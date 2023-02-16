@@ -48,14 +48,12 @@ $(() => {
     $(this).siblings('.copy-message-attempt').fadeIn(300);
   });
 
-  ///////////////////////////////////////////////////////////////////////
-  // EVENT LISTENER FOR MY QUIZZES MODAL WINDOW
-  ///////////////////////////////////////////////////////////////////////
-  // $('.attempts-modal').on('shown.bs.modal', function() {
-  //   $('attempts-modal-button').trigger('focus');
-  // });
 
-  $('.attempts-modal-btn').on('click', function(e) {
+  ///////////////////////////////////////////////////////////////////////
+  // EVENT LISTENER FOR MY QUIZZES - MODAL WINDOW
+  ///////////////////////////////////////////////////////////////////////
+
+  $('.quiz-data-modal-btn').on('click', function(e) {
     e.preventDefault();
 
     $('.modal-title').html('');
@@ -63,7 +61,7 @@ $(() => {
 
     const quizID = $(this).siblings('.hidden-quizID').html();
 
-    $.get(`http://localhost:8080/api/quizzes/${quizID}`, function(quizData) {
+    $.get(`http://localhost:8080/api/quizzes/data/${quizID}`, function(quizData) {
       console.log(quizData);
 
       $('.modal-title').html(`Data for ${quizData.quiz_title.toUpperCase()} Quiz`);
