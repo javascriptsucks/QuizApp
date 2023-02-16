@@ -41,10 +41,8 @@ router.post('/', (req, res) => {
       });
 
       const attempt = { quizId, userId, score };
-      console.log(attempt);
       quizAttemptsQueries.createAttempt(attempt)
         .then(response => {
-          console.log(response);
           res.redirect(`/quizAttempt/${response.id}`);
         });
     });

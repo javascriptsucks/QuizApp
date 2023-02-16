@@ -31,7 +31,6 @@ const updateQuesFromQuesObj = function(question) {
   const { questionText, answerText, questionId } = question;
 
   const sqlParams = [questionText, answerText, questionId];
-  console.log(`Query side value get: ${question}, ${sqlParams}`);
   return db.query(queryTemplate, sqlParams)
     .then((res) => res.rows[0])
     .catch(err => console.error(err.message));

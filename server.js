@@ -87,7 +87,7 @@ app.get('/', (req, res) => {
     return res.redirect('/quizzes');
   }
 
-  return res.render('index');
+  return res.status(200).render('index');
 
   // TRIAL CODE
   // const user_id = req.session.user_id;
@@ -116,8 +116,9 @@ app.get('/', (req, res) => {
 //               ERROR HANDLER
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('*', (req, res) => {
-  res.render('errorhandle');
+app.all('*', (req, res) => {
+  const templateVars = {errorMsg: '404 This is not the web page you are looking for'};
+  res.status(404).render('errorhandle', templateVars);
 });
 
 

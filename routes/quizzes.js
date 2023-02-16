@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const quizzesQueries = require('../db/queries/quizzes');
 const quizQuestionsQueries = require('../db/queries/quiz_questions');
+const escapeFnc = require('../utils/escapeFnc');
 
 router.use((req, res, next) => {
   if (!req.session.user_id) {
@@ -53,7 +54,6 @@ router.get('/update/:quiz_id', (req, res) => {
       if (response[0].creator_id !== userId) {
         return res.render('errorHandle');
       }
-      console.log(response);
       const templateVars = {
         response,
         userId,
@@ -72,8 +72,8 @@ router.post('/update/:quiz_id', (req, res) => {
       if (key.startsWith('question_id')) {
         continue;
       }
-      console.log('blank input detected');
-      return res.render('errorHandle');
+      const templateVars = {errorMsg: 'Please Fill Out All Questions'};
+      return res.render('errorHandle', templateVars);
     }
   }
 
@@ -84,13 +84,13 @@ router.post('/update/:quiz_id', (req, res) => {
     .then((quizQuestions) => {
       numOfQuestionsBefore = quizQuestions[0].question_number;
       if (quizQuestions[0].creator_id !== userId) {
-        console.log('not same creator');
         return res.render('errorHandle');
       }
     });
 
-
-  const {title, description, isPublic, numOfQuestions} = req.body;
+  // USER INPUT SANITIZATION
+  let {title, description, isPublic, numOfQuestions} = req.body;
+  [title, description] = escapeFnc(title, description);
   const quiz = {title, description, isPublic, numOfQuestions, id: quizId};
   quizzesQueries.updateQuizByObj(quiz)
     .then((response) => {

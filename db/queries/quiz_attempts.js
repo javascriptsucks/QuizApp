@@ -35,7 +35,7 @@ const createAttempt = function(attempt) {
 
   return db.query(newAttemptTemplate, sqlParams)
     .then((res) => {
-      console.log('creat question query run', res.rows[0]);
+      console.log('creat question query', res.rows[0]);
       return res.rows[0];
     })
     .catch(err => console.error(err.message));
