@@ -4,7 +4,7 @@ const getUsers = () => {
   return db.query('SELECT * FROM users;')
     .then(data => {
       return data.rows;
-    });
+    }).catch(err => console.error(err.message));
 };
 
 const getUserByEmail = (email) => {
@@ -19,7 +19,7 @@ const getUserByEmail = (email) => {
     .then((res) => {
       const user = res.rows[0];
       return user;
-    });
+    }).catch(err => console.error(err.message));
 };
 
 const getUserByID = (id) => {
@@ -34,7 +34,7 @@ const getUserByID = (id) => {
     .then((res) => {
       const user = res.rows[0];
       return user;
-    });
+    }).catch(err => console.error(err.message));
 };
 
 // CREATE NEW USER BY REGISTER

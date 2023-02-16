@@ -49,7 +49,7 @@ router.post('/login',
       // Render error
         if (!user) {
 
-          return res.render('errorHandle', {errorMsg: 'SORRY, CAN NOT FIND USER, PLEASE TRY AGAIN. '});
+          return res.status(501).render('errorHandle', {errorMsg: 'SORRY, CAN NOT FIND USER, PLEASE TRY AGAIN. '});
         }
         // IF user exist and password match: return session
         const {id, name, password: hashedPassword} = user;
@@ -60,7 +60,7 @@ router.post('/login',
           return res.redirect('/quizzes');
         }
         // IF password not match return error
-        return res.render('errorHandle', {errorMsg: 'SORRY, INVALID INPUT VALUE, PLEASE TRY AGAIN. '});
+        return res.status(401).render('errorHandle', {errorMsg: 'SORRY, INVALID INPUT VALUE, PLEASE TRY AGAIN. '});
       });
   });
 
@@ -71,8 +71,7 @@ router.get('/register', (req, res) => {
   if (req.session.user_id) {
     return res.redirect('/quizzes');
   }
-  // const userId = req.session.user_id;
-  // const userName = req.session.user_name;
+
   res.render('users_register');
 });
 
@@ -95,18 +94,35 @@ router.post('/register',
     //EMAIL SHOULD NOT BE CASE SENSITIVE
     email = email.toLowerCase();
 
-    if (password !== passwordConfirm) {
-      return res.render('errorHandle', {errorMsg: 'PASSWORD WAS NOT THE SAME, PLEASE TRY AGAIN. '});
-    }
-    const hashedPassword = bcrypt.hashSync(password, 12);
-    const user = {name, email, password: hashedPassword};
-    userQueries.createNewUser(user)
-      .then((response) => {
-        req.session['user_id'] = response.id;
-        req.session['user_name'] = name;
-        return res.redirect('/quizzes');
-      });
 
+    if (password !== passwordConfirm) {
+      return res.status(401).render('errorHandle', {errorMsg: 'PASSWORD WAS NOT THE SAME, PLEASE TRY AGAIN. '});
+    }
+
+    try {
+      // 1. CHECK TO SEE IF EMAIL HAS REGISTERED
+      userQueries.getUserByEmail(email)
+        .then((response) => {
+          if (!response) {
+            const hashedPassword = bcrypt.hashSync(password, 12);
+            const user = {name, email, password: hashedPassword};
+            // 2. NO REGISTER CREATE NEW USER
+            userQueries.createNewUser(user)
+              .then((response) => {
+                req.session['user_id'] = response.id;
+                req.session['user_name'] = name;
+                return res.redirect('/quizzes');
+              });
+          // 3.HAS REGISTERED POP ERROR MESSAGE
+          } else {
+            return res.status(400).render('errorHandle', {errorMsg: 'THE USER HAS ALREADY REGISTERED, PLEASE USE DIFFERENT EMAIL. '});
+          }
+        });
+
+    } catch (error) {
+      console.error(error.message);
+      return res.status(500);
+    }
   });
 
 // LOGOUT BUTTON SUBMIT

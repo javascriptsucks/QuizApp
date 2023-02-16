@@ -16,7 +16,7 @@ const getQuizAttemptById = (quizAttemptId) => {
   return db.query(queryTemplate, sqlParams)
     .then((data) => {
       return data.rows[0];
-    });
+    }).catch(err => console.error(err.message));
 
 };
 
