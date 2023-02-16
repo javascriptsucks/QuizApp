@@ -43,6 +43,21 @@ $(() => {
     $(this).siblings('.copy-message-attempt').fadeIn(300);
   });
 
+  ///////////////////////////////////////////////////////////////////////
+  // EVENT LISTENER FOR MY QUIZZES MODAL WINDOW
+  ///////////////////////////////////////////////////////////////////////
+  // $('#myModal').on('shown.bs.modal', function () {
+  //   $('#myInput').trigger('focus')
+  // })
+
+  $('attempts-modal-btn').on('click', function(e) {
+    e.preventDefault();
+
+    $('attempts-modal').modal('show');
+  });
+
+
+
 
 });
 
