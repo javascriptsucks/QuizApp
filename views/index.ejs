@@ -1,7 +1,7 @@
 <%- include('partials/_header') %>
 
   <!-- REGISTER MODAL WINDOW -->
-  <div class="register-modal modal animated fadeIn" tabindex="-1">
+  <div class="register-modal modal fade" tabindex="-1">
     <div class="-register-modal-dialog modal-dialog">
       <div class="register-modal-content modal-content">
         <div class="register-modal-header modal-header">
@@ -32,7 +32,7 @@
   </div>
 
   <!-- LOGIN MODAL WINDOW -->
-  <div class="login-modal modal" tabindex="-1">
+  <div class="login-modal modal fade" tabindex="-1">
     <div class="-login-modal-dialog modal-dialog">
       <div class="login-modal-content modal-content">
         <div class="login-modal-header modal-header">
@@ -45,7 +45,7 @@
           <div class="w-50 mt-5 mx-auto text-center">
             <form id="login-modal-form" class="form-inline my-2 my-lg-0" action="/users/login" method="POST">
               <input class="form-control mb-2" type="email" name="emailLogin" placeholder="Your Email">
-              <input class="form-control mb-2" type="password" name="passwordLogin" placeholder="Your Password">
+              <input class="form-control mb-5" type="password" name="passwordLogin" placeholder="Your Password">
               <button class="btn btn-lg w-50 mx-auto btn-primary btn-block" type="submit">Sign In</button>
             </form>
           </div>
@@ -58,7 +58,7 @@
   </div>
 
 
-  <main class="index-page flex-fill">
+  <main class="hidden index-page flex-fill">
     <div class="jumbotron w-75 mt-5 mx-auto">
       <h1 class="display-4">Welcome to QuizApp!</h1>
       <p class="lead">A multi-page web application that allows you to view and attempt quizzes created by other users.

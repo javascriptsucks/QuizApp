@@ -45,7 +45,7 @@ body {
 }
 
 .quiz-attempt-page .jumbotron {
-  background-color: transparent;
+  background-color: #DC9750;
   border: 3px solid #1E2640;
   box-shadow: 7px 7px 7px #1E2640;
 
@@ -107,4 +107,8 @@ body {
 .login-modal-header {
   background-color: #DC9750;
   border-bottom: 3px solid #1E2640;
+}
+
+.hidden {
+  display: none;
 }

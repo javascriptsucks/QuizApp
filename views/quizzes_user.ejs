@@ -3,7 +3,7 @@
   <main class="flex-fill">
 
     <!-- Vertically centered modal -->
-    <div class="quiz-data-modal modal" tabindex="-1">
+    <div class="quiz-data-modal modal fade" tabindex="-1">
       <div class="modal-dialog">
         <div class="quiz-data-modal-content modal-content">
           <div class="quiz-data-modal-header modal-header">
@@ -27,7 +27,7 @@
       <p>See all the quizzes you've created.</p>
     </span>
 
-    <div class="list-group w-75 mx-auto mt-5">
+    <div class="list-group w-75 mx-auto mt-5 hidden">
 
       <% for (let i=0; i < quizzes.length; i++) { %>
 
