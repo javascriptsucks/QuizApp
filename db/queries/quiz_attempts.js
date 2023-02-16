@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 
-
+// GET ONE QUIZ ATTEMPT BY ATTEMPT ID
 const getQuizAttemptById = (quizAttemptId) => {
   const queryTemplate = `
     SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title, quizzes.num_of_questions as num_of_questions
@@ -41,4 +41,4 @@ const createAttempt = function(attempt) {
     .catch(err => console.error(err.message));
 };
 
-module.exports = { createAttempt, getQuizAttemptById };
+module.exports = { createAttempt, getQuizAttemptById , getAllQuizAttemptsByQuizId};

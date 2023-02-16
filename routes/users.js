@@ -42,10 +42,10 @@ router.post('/login', (req, res) => {
         return res.render('errorHandle');
       }
       // IF user exist and password match: return session
-      const {id, name, password: hashedPassword} = user;
+      const { id, name, password: hashedPassword } = user;
       if (bcrypt.compareSync(password, hashedPassword)) {
 
-        req.session['user_id'] =  id;
+        req.session['user_id'] = id;
         req.session['user_name'] = name;
         return res.redirect('/quizzes');
       }
@@ -69,7 +69,7 @@ router.get('/register', (req, res) => {
 // POST SIGN UP SUBMIT
 
 router.post('/register', (req, res) => {
-  let {name, email, password, passwordConfirm} = req.body;
+  let { name, email, password, passwordConfirm } = req.body;
   //EMAIL SHOULD NOT BE CASE SENSITIVE
   email = email.toLowerCase();
 
@@ -80,7 +80,7 @@ router.post('/register', (req, res) => {
     return res.render('errorHandle');
   }
   const hashedPassword = bcrypt.hashSync(password, 12);
-  const user = {name, email, password: hashedPassword};
+  const user = { name, email, password: hashedPassword };
   userQueries.createNewUser(user)
     .then((response) => {
       req.session['user_id'] = response.id;
@@ -114,7 +114,7 @@ router.get('/:user_id', (req, res) => {
 
       res.render('quizzes_user', templateVars);
     })
-  ;
+    ;
 });
 
 module.exports = router;

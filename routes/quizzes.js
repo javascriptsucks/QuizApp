@@ -42,6 +42,8 @@ router.get('/new', (req, res) => {
   res.render('quizzes_new', templateVars);
 });
 
+
+
 // RENDER UPDATE QUIZ PAGE
 router.get('/update/:quiz_id', (req, res) => {
   const userId = req.session.user_id;
@@ -58,6 +60,7 @@ router.get('/update/:quiz_id', (req, res) => {
       res.render('quizzes_update', templateVars);
     });
 });
+
 
 
 // RENDER INDIVIDUAL QUIZ PAGE
@@ -112,10 +115,6 @@ router.post('/new', (req, res) => {
       res.redirect('/');
     });
 });
-
-
-
-// router.get()
 
 
 module.exports = router;

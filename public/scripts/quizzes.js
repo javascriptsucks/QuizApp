@@ -1,5 +1,10 @@
 // Client facing scripts here
 
+///////////////////////////////////////////////////////////////////////
+// CLIENT-SIDE HELPER FUNCTIONS
+///////////////////////////////////////////////////////////////////////
+
+
 const flexRenderInputs = function() {
   $('#new-quiz-number').on('change', function(e) {
 
@@ -39,14 +44,16 @@ $(() => {
   ///////////////////////////////////////////////////////////////////////
   // EVENT LISTENER FOR COPY LINK BUTTONS - HOME PAGE/MY QUIZZES PAGE
   ///////////////////////////////////////////////////////////////////////
-  $('.copy-message-quizzes').hide();
 
+  // HIDE COPY POP-UP MESSAGE ON LOAD
+  $('.copy-message-quizzes').hide();
 
   $('.copy-link-quizzes-btn').on('click', function(e) {
     e.preventDefault();
 
     $('.copy-message-quizzes').fadeOut(300);
 
+    // Copy link to clipboard on click
     navigator.clipboard.writeText($(this).siblings('.hidden-link-quizzes').html());
     $(this).siblings('.copy-message-quizzes').fadeIn(300);
   });
@@ -54,11 +61,14 @@ $(() => {
   ///////////////////////////////////////////////////////////////////////
   // EVENT LISTENER FOR COPY LINK BUTTON - QUIZ ATTEMPT PAGE
   ///////////////////////////////////////////////////////////////////////
+
+  // HIDE COPY POP-UP MESSAGE ON LOAD
   $('.copy-message-attempt').hide();
 
   $('.copy-link-attempt-btn').on('click', function(e) {
     e.preventDefault();
 
+    // Copy link to clipboard on click
     navigator.clipboard.writeText($(this).siblings('.hidden-link-attempt').html());
     $(this).siblings('.copy-message-attempt').fadeIn(300);
   });
@@ -70,11 +80,14 @@ $(() => {
   //   $('#myInput').trigger('focus')
   // })
 
-  $('attempts-modal-btn').on('click', function(e) {
-    e.preventDefault();
+  // $('.attempts-modal-btn').on('click', function(e) {
+  //   e.preventDefault();
+  //   console.log("clicked!");
 
-    $('attempts-modal').modal('show');
-  });
+  //   const quizID = $(this).siblings('.hidden-quizID').html();
+  //   console.log(quizID);
+
+  // });
 
 
 
