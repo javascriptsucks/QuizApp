@@ -79,12 +79,32 @@ body {
   width: 40%;
 }
 
-.quiz-data-modal .modal-content {
+.quiz-data-modal-content {
   background-color: #E9DAC4;
   border: 3px solid #1E2640;
 }
 
-.quiz-data-modal .modal-header {
+.quiz-data-modal-header {
+  background-color: #DC9750;
+  border-bottom: 3px solid #1E2640;
+}
+
+.register-modal-content {
+  background-color: #E9DAC4;
+  border: 3px solid #1E2640;
+}
+
+.register-modal-header {
+  background-color: #DC9750;
+  border-bottom: 3px solid #1E2640;
+}
+
+.login-modal-content {
+  background-color: #E9DAC4;
+  border: 3px solid #1E2640;
+}
+
+.login-modal-header {
   background-color: #DC9750;
   border-bottom: 3px solid #1E2640;
 }

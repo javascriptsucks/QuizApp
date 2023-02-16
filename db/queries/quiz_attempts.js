@@ -20,7 +20,7 @@ const getQuizAttemptById = (quizAttemptId) => {
 
 };
 
-// GET ONE QUIZ ATTEMPT BY ATTEMPT ID
+// GET QUIZ DATA BY QUIZ ID
 const getQuizAttemptDataByQuizId = (quizId) => {
   const queryTemplate = `
     SELECT quiz_id, COUNT(quiz_attempts.*) as num_of_attempts, ROUND(AVG(score), 2) as average_score, quizzes.title as quiz_title
