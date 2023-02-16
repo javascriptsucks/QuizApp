@@ -59,6 +59,20 @@ router.get('/update/:quiz_id', (req, res) => {
     });
 });
 
+router.post('/update/:quiz_id', (req, res) => {
+  const quizId = req.params.quiz_id;
+  const {title, description, isPublic, numOfQuestions} = req.body;
+  const quiz = {title, description, isPublic, numOfQuestions, id: quizId};
+  quizzesQueries.updateQuizByObj(quiz)
+    .then((response) => {
+      console.log(response);
+      res.redirect('/');
+    });
+});
+
+
+
+
 
 // RENDER INDIVIDUAL QUIZ PAGE
 router.get('/:quiz_id', (req, res) => {

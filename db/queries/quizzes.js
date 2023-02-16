@@ -64,6 +64,26 @@ const createNewQuizzes = (quiz) => {
     .catch(err => console.error(err.message));
 };
 
+const updateQuizByObj = function(quiz) {
+  const queryTemplate = `
+    UPDATE quizzes
+    SET title = $1,
+    description = $2,
+    is_public = $3,
+    num_of_questions = $4
+    WHERE id = $5
+    RETURNING *
+  ;
+  `;
+  const {title, description, isPublic, numOfQuestions, id } = quiz;
+
+  const sqlParams = [title, description, isPublic, numOfQuestions, id ];
+
+  return db.query(queryTemplate, sqlParams)
+    .then((res) => res.rows[0])
+    .catch(err => console.error(err.message));
+};
 
 
-module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes};
+
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, updateQuizByObj};

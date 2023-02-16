@@ -15,8 +15,29 @@ const createQuesFromQuesObj = function(question) {
   const sqlParams = [quizId, questionText, answerText];
 
   return db.query(queryTemplate, sqlParams)
-    .then((res) => res.rows)
+    .then((res) => res.rows[0])
     .catch(err => console.error(err.message));
 };
 
-module.exports = { createQuesFromQuesObj };
+const updateQuesFromQuesObj = function(question) {
+  const queryTemplate = `
+    UPDATE quiz_questions
+    SET question_text = $1,
+    answer_text = $2
+    WHERE id = $3
+    RETURNING *
+  ;
+  `;
+  const { quizId, questionText, answerText } = question;
+
+  const sqlParams = [quizId, questionText, answerText];
+
+  return db.query(queryTemplate, sqlParams)
+    .then((res) => res.rows[0])
+    .catch(err => console.error(err.message));
+};
+
+
+
+
+module.exports = { createQuesFromQuesObj, updateQuesFromQuesObj};
