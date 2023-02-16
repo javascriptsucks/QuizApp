@@ -58,3 +58,12 @@ html {
   justify-content: space-between;
   align-items: center;
 }
+
+#login-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-modal-form .form-control {
+  margin-bottom: 0.5em;
+}
