@@ -7,26 +7,26 @@ const getQusByIdAndRender = function(quizId) {
     $.get(`/api/quizzes/update/${quizId}`, function(questions) {
 
       let loopInput = '';
-      console.log(quizId);
       const {questions: res} = questions;
-      if (res) {
-        for (let i = 1; i <= selectVal; i++) {
-          let question = (typeof res[i - 1]?.question === 'undefined') ? '' : res[i - 1].answer;
-          let answer = (typeof res[i - 1]?.answer === 'undefined') ? '' : res[i - 1].answer;
-          console.log(question, answer);
-          loopInput += `
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Question ${i}</label>
-              <input name="question${i}" type="text" class="form-control" value=${question}>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Answer</label>
-              <input name="answer${i}" type="text" class="form-control" value=${answer}>
-            </div>
+      for (let i = 1; i <= selectVal; i++) {
+        let question=(typeof res[i-1]?.question==='undefined')? '':res[i-1].question;
+        let questionEscap=$('<div/>').text(question).html();
+        console.log(questionEscap);
+        let answer = (typeof res[i - 1]?.answer === 'undefined') ? '' : res[i - 1].answer;
+        console.log(question, answer);
+        loopInput += `
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Question ${i}</label>
+            <input name="question${i}" type="text" class="form-control" value="${question}">
           </div>
-        `;
-        }
+          <div class="form-group col-md-6">
+            <label>Answer</label>
+            <input name="answer${i}" type="text" class="form-control" value="${answer}">
+          </div>
+        </div>
+      `;
+
       }
       console.log(loopInput);
 
@@ -45,31 +45,28 @@ const getQusByIdAndRender = function(quizId) {
 };
 
 
-const flexRenderInputs = function(questions) {
+const flexRenderInputs = function() {
   $('#new-quiz-number').on('change', function(e) {
     const selectVal = this.value;
 
     let loopInput = '';
-    console.log(questions.length);
 
     if (questions) {
-      for (let i = 1; i <= questions.length; i++) {
-        console.log(1);
+      for (let i = 1; i <= selectVal; i++) {
         loopInput += `
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Question ${i}</label>
-              <input name="question${i}" type="text" class="form-control" value=${questions[i - 1].question}>
+              <input name="question${i}" type="text" class="form-control">
             </div>
             <div class="form-group col-md-6">
               <label>Answer</label>
-              <input name="answer${i}" type="text" class="form-control" value=${questions[i - 1].answer}>
+              <input name="answer${i}" type="text" class="form-control">
             </div>
           </div>
         `;
       }
     }
-    console.log(loopInput);
 
     const renderInput = `
           <span>
@@ -94,7 +91,7 @@ $(() => {
     getQusByIdAndRender(quizId);
 
   } else if (pathName.startsWith('/quizzes/new')) {
-    // flexRenderInputs();
+    flexRenderInputs();
   }
 
 
