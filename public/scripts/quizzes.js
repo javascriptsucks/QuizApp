@@ -76,20 +76,32 @@ $(() => {
   ///////////////////////////////////////////////////////////////////////
   // EVENT LISTENER FOR MY QUIZZES MODAL WINDOW
   ///////////////////////////////////////////////////////////////////////
-  // $('#myModal').on('shown.bs.modal', function () {
-  //   $('#myInput').trigger('focus')
-  // })
-
-  // $('.attempts-modal-btn').on('click', function(e) {
-  //   e.preventDefault();
-  //   console.log("clicked!");
-
-  //   const quizID = $(this).siblings('.hidden-quizID').html();
-  //   console.log(quizID);
-
+  // $('.attempts-modal').on('shown.bs.modal', function() {
+  //   $('attempts-modal-button').trigger('focus');
   // });
 
+  $('.attempts-modal-btn').on('click', function(e) {
+    e.preventDefault();
 
+    $('.modal-title').html('');
+    $('.modal-body').empty();
+
+    const quizID = $(this).siblings('.hidden-quizID').html();
+
+    $.get(`http://localhost:8080/api/quizzes/${quizID}`, function(quizData) {
+      console.log(quizData);
+
+      $('.modal-title').html(`Data for ${quizData.quiz_title.toUpperCase()} Quiz`);
+
+      $('.modal-body')
+        .append(`
+            <p>Number Of Times Attempted: ${quizData.num_of_attempts}</p>
+            <p>Average Score: ${quizData.average_score}</p>
+          `);
+
+    });
+
+  });
 
 
 });
