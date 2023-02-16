@@ -1,6 +1,27 @@
 <%- include('partials/_header') %>
 
   <main class="flex-fill">
+
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <span id="quizzes-user-title">
       <h1>My Quizzes</h1>
       <p>See all the quizzes you've created.</p>
@@ -9,10 +30,35 @@
     <div class="list-group w-75 mx-auto mt-5">
 
       <% for (let i=0; i < quizzes.length; i++) { %>
+        <!-- Vertically centered modal -->
+        <div class="attempts-modal modal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Modal body text goes here.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="card text-center mt-2 mb-2">
           <div class="card-header">
-            Created by: <%= quizzes[i].creator %>
+            <span>Created by: <%= quizzes[i].creator %></span>
+            <span>
+              <% if (quizzes[i].is_public===false ) { %>
+                (Private)
+                <% } %>
+                  Quiz with <%= quizzes[i].num_of_questions %> quesitons
+            </span>
           </div>
           <div class="card-body">
             <h5 class="card-title">
@@ -30,12 +76,8 @@
               <button class="copy-link-quizzes-btn btn btn-primary">Copy Link</button>
               <span class="copy-message-quizzes">Copied!</span>
             </span>
-            <span>
-              <% if (quizzes[i].is_public===false ) { %>
-                (Private)
-                <% } %>
-                  Quiz with <%= quizzes[i].num_of_questions %> quesitons
-            </span>
+            <a href="#" data-toggle="modal" data-target=".attempts-modal" class="attempts-modal-btn btn btn-primary">See
+              Previous Attempts</a>
           </div>
         </div>
 
