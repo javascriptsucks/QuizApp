@@ -3,7 +3,7 @@
   <main class="flex-fill">
 
     <!-- Vertically centered modal -->
-    <div class="attempts-modal modal" tabindex="-1">
+    <div class="quiz-data-modal modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -62,9 +62,8 @@
               <p hidden class="hidden-quizID">
                 <%= quizzes[i].id %>
               </p>
-              <a href="#" data-toggle="modal" data-target=".attempts-modal"
-                class="attempts-modal-btn btn btn-primary">See
-                Previous Attempts</a>
+              <a href="#" data-toggle="modal" data-target=".quiz-data-modal"
+                class="quiz-data-modal-btn btn btn-primary">View Quiz Data</a>
             </span>
           </div>
         </div>

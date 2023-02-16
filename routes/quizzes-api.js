@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const quizzesQueries = require('../db/queries/quizzes');
 const quizAttemptsQueries = require('../db/queries/quiz_attempts');
 
 // GET QUIZ ATTEMPT DATA BY QUIZ ID
-router.get('/:quiz_id', (req, res) => {
+router.get('/data/:quiz_id', (req, res) => {
   const quizId = req.params.quiz_id;
   quizAttemptsQueries.getQuizAttemptDataByQuizId(quizId)
     .then(data => {
