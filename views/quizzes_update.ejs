@@ -48,8 +48,10 @@
               <select id="new-quiz-number" name="numOfQuestions" class="custom-select custom-select-md">
                 <option>Open this select menu</option>
 
-                <% for ( num of [5,10,15,20,25,30]) { %>
-
+                <% for ( num of [5, 10, 15, 20, 25, 30, 35, 40]) { %>
+                  <% if (num < response[0].question_number) {%>
+                    <% continue %>
+                  <% } %>
                   <% if (num === response[0].question_number) { %>
                     <option selected value=<%= response[0].question_number %>><%= response[0].question_number %></option>
                   <% } else { %>

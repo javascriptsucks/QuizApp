@@ -23,7 +23,7 @@ const getPublicQuizzes = () => {
 // GET ALL QUIZ QUESTIONS BY QUIZ_ID + NAME OF CREATOR
 const getQuizzesQuestionsById = (id) => {
   const queryTemplate = `
-    SELECT question_text as question, answer_text as answer, quizzes.id as quiz_id, quizzes.title as title, quizzes.description as description, quizzes.is_public as is_public, quizzes.num_of_questions as question_number, users.name as creator,  quiz_questions.id as question_id
+    SELECT question_text as question, answer_text as answer, quizzes.id as quiz_id, quizzes.title as title, quizzes.description as description, quizzes.is_public as is_public, quizzes.num_of_questions as question_number, users.name as creator, users.id as creator_id,  quiz_questions.id as question_id
     FROM quiz_questions
     JOIN quizzes ON quizzes.id = quiz_questions.quiz_id
     JOIN users ON creator_id = users.id

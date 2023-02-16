@@ -47,8 +47,12 @@ router.get('/update/:quiz_id', (req, res) => {
   const userId = req.session.user_id;
   const userName = req.session.user_name;
   const quizId = req.params.quiz_id;
+
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then(response => {
+      if (response[0].creator_id !== userId) {
+        return res.render('errorHandle');
+      }
       console.log(response);
       const templateVars = {
         response,
@@ -59,13 +63,72 @@ router.get('/update/:quiz_id', (req, res) => {
     });
 });
 
+// POST UPDATE QUIZ AND ALSO QUIZ QUESTIONS
+
 router.post('/update/:quiz_id', (req, res) => {
+  for (const key in req.body) {
+    if (req.body[key] === '') {
+      if (key.startsWith('question_id')) {
+        continue;
+      }
+      console.log('blank input detected');
+      return res.render('errorHandle');
+    }
+  }
+
+  let numOfQuestionsBefore = 0;
   const quizId = req.params.quiz_id;
+  const userId = req.session.user_id;
+  quizzesQueries.getQuizzesQuestionsById(quizId)
+    .then((quizQuestions) => {
+      numOfQuestionsBefore = quizQuestions[0].question_number;
+      if (quizQuestions[0].creator_id !== userId) {
+        console.log('not same creator');
+        return res.render('errorHandle');
+      }
+    });
+
+
   const {title, description, isPublic, numOfQuestions} = req.body;
   const quiz = {title, description, isPublic, numOfQuestions, id: quizId};
   quizzesQueries.updateQuizByObj(quiz)
     .then((response) => {
       console.log(response);
+
+      for (let i = 1; i <= numOfQuestionsBefore; i++) {
+
+        const questionText = req.body[`question${i}`];
+        const answerText = req.body[`answer${i}`];
+        console.log(req.body);
+        console.log(req.body[`question_id${i}`]);
+        const questionId = Number(req.body[`question_id${i}`]);
+
+        console.log('Start to print output of all questions input!!!!!', questionId, questionText, answerText);
+
+        const question = { questionId, questionText, answerText };
+        console.log(`Route side question! ${question.questionId}`);
+        quizQuestionsQueries.updateQuesFromQuesObj(question)
+          .then((response) => console.log('Update data to questions', response));
+
+      }
+      if (numOfQuestions > numOfQuestionsBefore) {
+
+        for (let j = numOfQuestionsBefore + 1; j <= numOfQuestions; j++) {
+
+          const questionText = req.body[`question${j}`];
+          const answerText = req.body[`answer${j}`];
+
+          console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
+
+          const question = { quizId, questionText, answerText };
+
+          quizQuestionsQueries.createQuesFromQuesObj(question)
+            .then((question) => console.log('Insert data to questions', question));
+
+        }
+
+      }
+
       res.redirect('/');
     });
 });
@@ -129,7 +192,6 @@ router.post('/new', (req, res) => {
 
 
 
-// router.get()
 
 
 module.exports = router;
