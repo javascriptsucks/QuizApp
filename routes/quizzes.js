@@ -1,5 +1,5 @@
 const express = require('express');
-const {body, validationResult} = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 
 const router = express.Router();
@@ -55,7 +55,7 @@ router.get('/update/:quiz_id', (req, res) => {
   quizzesQueries.getQuizzesQuestionsById(quizId)
     .then(response => {
       if (response[0].creator_id !== userId) {
-        return res.status(400).render('errorHandle', {errorMsg: 'SORRY YOU HAVE NO GOOD AUTHENTICATION TO UPDATE THE QUIZ. '});
+        return res.status(400).render('errorHandle', { errorMsg: 'SORRY YOU HAVE NO GOOD AUTHENTICATION TO UPDATE THE QUIZ. ' });
       }
       const templateVars = {
         response,
@@ -66,6 +66,8 @@ router.get('/update/:quiz_id', (req, res) => {
     });
 });
 
+
+
 // POST UPDATE QUIZ AND ALSO QUIZ QUESTIONS
 // USER INPUT SANITIZATION
 router.post('/update/:quiz_id',
@@ -73,7 +75,6 @@ router.post('/update/:quiz_id',
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
       const templateVars = {
         errorMsg: errors.array()[0].msg
       };
@@ -85,7 +86,7 @@ router.post('/update/:quiz_id',
         if (key.startsWith('question_id')) {
           continue;
         }
-        const templateVars = {errorMsg: 'Please Fill Out All Questions'};
+        const templateVars = { errorMsg: 'Please Fill Out All Questions' };
         return res.render('errorHandle', templateVars);
       }
     }
@@ -97,30 +98,24 @@ router.post('/update/:quiz_id',
       .then((quizQuestions) => {
         numOfQuestionsBefore = quizQuestions[0].question_number;
         if (quizQuestions[0].creator_id !== userId) {
-          return res.render('errorHandle', {errorMsg: 'SORRY YOU HAVE NO GOOD AUTHENTICATION TO UPDATE THE QUIZ. '});
+          return res.render('errorHandle', { errorMsg: 'SORRY YOU HAVE NO GOOD AUTHENTICATION TO UPDATE THE QUIZ. ' });
         }
       });
 
-    let {title, description, isPublic, numOfQuestions} = req.body;
-    const quiz = {title, description, isPublic, numOfQuestions, id: quizId};
+    let { title, description, isPublic, numOfQuestions } = req.body;
+    const quiz = { title, description, isPublic, numOfQuestions, id: quizId };
     quizzesQueries.updateQuizByObj(quiz)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
 
         for (let i = 1; i <= numOfQuestionsBefore; i++) {
 
           const questionText = req.body[`question${i}`];
           const answerText = req.body[`answer${i}`];
-          console.log(req.body);
-          console.log(req.body[`question_id${i}`]);
           const questionId = Number(req.body[`question_id${i}`]);
 
-          console.log('Start to print output of all questions input!!!!!', questionId, questionText, answerText);
-
           const question = { questionId, questionText, answerText };
-          console.log(`Route side question! ${question.questionId}`);
           quizQuestionsQueries.updateQuesFromQuesObj(question)
-            .then((response) => console.log('Update data to questions', response));
+            .then(() => console.log('Update data to questions'));
 
         }
         if (numOfQuestions > numOfQuestionsBefore) {
@@ -130,23 +125,16 @@ router.post('/update/:quiz_id',
             const questionText = req.body[`question${j}`];
             const answerText = req.body[`answer${j}`];
 
-            console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
-
             const question = { quizId, questionText, answerText };
 
             quizQuestionsQueries.createQuesFromQuesObj(question)
-              .then((question) => console.log('Insert data to questions', question));
-
+              .then(() => console.log('Insert data to questions'));
           }
-
         }
 
-        res.redirect('/');
+        return res.redirect('/');
       });
   });
-
-
-
 
 
 
@@ -177,18 +165,17 @@ router.post('/new',
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
       const templateVars = {
         errorMsg: errors.array()[0].msg
       };
+
       return res.status(400).render('errorHandle', templateVars);
     }
+
     const userId = req.session.user_id;
     const { title, description, isPublic, numOfQuestions } = req.body;
 
-
     const quiz = { userId, title, description, isPublic, numOfQuestions };
-
 
     quizzesQueries.createNewQuizzes(quiz)
       .then((quizRes) => {
@@ -200,15 +187,13 @@ router.post('/new',
           const questionText = req.body[`question${i}`];
           const answerText = req.body[`answer${i}`];
 
-          console.log('Start to print output of all questions input!!!!!', quizId, questionText, answerText);
-
           const question = { quizId, questionText, answerText };
 
           quizQuestionsQueries.createQuesFromQuesObj(question)
             .then(() => console.log('Insert data to questions'));
         }
 
-        res.redirect('/');
+        return res.redirect('/');
       });
   });
 

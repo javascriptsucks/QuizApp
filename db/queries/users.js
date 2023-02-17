@@ -1,11 +1,5 @@
 const db = require('../connection');
 
-const getUsers = () => {
-  return db.query('SELECT * FROM users;')
-    .then(data => {
-      return data.rows;
-    }).catch(err => console.error(err.message));
-};
 
 const getUserByEmail = (email) => {
   const emailQuery = `
@@ -19,8 +13,11 @@ const getUserByEmail = (email) => {
     .then((res) => {
       const user = res.rows[0];
       return user;
-    }).catch(err => console.error(err.message));
+    })
+    .catch(err => console.error(err.message));
 };
+
+
 
 const getUserByID = (id) => {
   const idQuery = `
@@ -34,8 +31,11 @@ const getUserByID = (id) => {
     .then((res) => {
       const user = res.rows[0];
       return user;
-    }).catch(err => console.error(err.message));
+    })
+    .catch(err => console.error(err.message));
 };
+
+
 
 // CREATE NEW USER BY REGISTER
 const createNewUser = (user) => {
@@ -58,6 +58,7 @@ const createNewUser = (user) => {
     .catch(err => console.error(err.message));
 };
 
+
 // GET ALL QUIZZES CREATED BY A USER
 const getQuizzesByCreator = (userId) => {
 
@@ -79,4 +80,4 @@ const getQuizzesByCreator = (userId) => {
 
 
 
-module.exports = { getUsers, getUserByEmail, getUserByID, getQuizzesByCreator, createNewUser };
+module.exports = { getUserByEmail, getUserByID, getQuizzesByCreator, createNewUser };

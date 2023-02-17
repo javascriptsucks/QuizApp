@@ -39,4 +39,4 @@ const updateQuesFromQuesObj = function(question) {
 
 
 
-module.exports = { createQuesFromQuesObj, updateQuesFromQuesObj};
+module.exports = { createQuesFromQuesObj, updateQuesFromQuesObj };

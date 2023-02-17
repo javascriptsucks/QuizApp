@@ -6,33 +6,24 @@
  */
 
 const express = require('express');
-const {body, validationResult} = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 const userQueries = require('../db/queries/users');
 
 
+// >>> PATH: /users
 
-// >>> PATH: /users <<<
-
-// GET LOGIN PAGE
-router.get('/login', (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect('/quizzes');
-  }
-  res.render('users_login');
-});
 
 // LOGIN PAGE SUBMIT
 router.post('/login',
   // USER INPUT VALIDATION
   body('emailLogin').isEmail(),
-  body('passwordLogin').isLength({min: 7}),
+  body('passwordLogin').isLength({ min: 7 }),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
       const templateVars = {
         errorMsg: errors.array()[0].msg
       };
@@ -45,58 +36,48 @@ router.post('/login',
 
     userQueries.getUserByEmail(email)
       .then((user) => {
-      // IF user not exist or random input email password
-      // Render error
+        // IF user not exist or random input email password
+        // Render error
         if (!user) {
 
-          return res.status(501).render('errorHandle', {errorMsg: 'SORRY, CAN NOT FIND USER, PLEASE TRY AGAIN. '});
+          return res.status(501).render('errorHandle', { errorMsg: 'SORRY, CAN NOT FIND USER, PLEASE TRY AGAIN. ' });
         }
         // IF user exist and password match: return session
-        const {id, name, password: hashedPassword} = user;
+        const { id, name, password: hashedPassword } = user;
         if (bcrypt.compareSync(password, hashedPassword)) {
 
-          req.session['user_id'] =  id;
+          req.session['user_id'] = id;
           req.session['user_name'] = name;
           return res.redirect('/quizzes');
         }
         // IF password not match return error
-        return res.status(401).render('errorHandle', {errorMsg: 'SORRY, INVALID INPUT VALUE, PLEASE TRY AGAIN. '});
+        return res.status(401).render('errorHandle', { errorMsg: 'SORRY, INVALID INPUT VALUE, PLEASE TRY AGAIN. ' });
       });
   });
 
 
-// GET SIGN UP PAGE
-
-router.get('/register', (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect('/quizzes');
-  }
-
-  res.render('users_register');
-});
 
 // POST SIGN UP SUBMIT
 
 router.post('/register',
   body('name').isLength({ min: 2 }).trim().escape(),
   body('email').isEmail().normalizeEmail(),
-  body('password').isLength({min: 7}),
+  body('password').isLength({ min: 7 }),
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
       const templateVars = {
         errorMsg: errors.array()[0].msg
       };
       return res.status(400).render('errorHandle', templateVars);
     }
-    let {name, email, password, passwordConfirm} = req.body;
+    let { name, email, password, passwordConfirm } = req.body;
     //EMAIL SHOULD NOT BE CASE SENSITIVE
     email = email.toLowerCase();
 
 
     if (password !== passwordConfirm) {
-      return res.status(401).render('errorHandle', {errorMsg: 'PASSWORD WAS NOT THE SAME, PLEASE TRY AGAIN. '});
+      return res.status(401).render('errorHandle', { errorMsg: 'PASSWORD WAS NOT THE SAME, PLEASE TRY AGAIN. ' });
     }
 
     try {
@@ -105,7 +86,7 @@ router.post('/register',
         .then((response) => {
           if (!response) {
             const hashedPassword = bcrypt.hashSync(password, 12);
-            const user = {name, email, password: hashedPassword};
+            const user = { name, email, password: hashedPassword };
             // 2. NO REGISTER CREATE NEW USER
             userQueries.createNewUser(user)
               .then((response) => {
@@ -113,9 +94,9 @@ router.post('/register',
                 req.session['user_name'] = name;
                 return res.redirect('/quizzes');
               });
-          // 3.HAS REGISTERED POP ERROR MESSAGE
+            // 3.HAS REGISTERED POP ERROR MESSAGE
           } else {
-            return res.status(400).render('errorHandle', {errorMsg: 'THE USER HAS ALREADY REGISTERED, PLEASE USE DIFFERENT EMAIL. '});
+            return res.status(400).render('errorHandle', { errorMsg: 'THE USER HAS ALREADY REGISTERED, PLEASE USE DIFFERENT EMAIL. ' });
           }
         });
 
@@ -124,6 +105,8 @@ router.post('/register',
       return res.status(500);
     }
   });
+
+
 
 // LOGOUT BUTTON SUBMIT
 router.post('/logout', (req, res) => {

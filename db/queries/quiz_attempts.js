@@ -16,7 +16,8 @@ const getQuizAttemptById = (quizAttemptId) => {
   return db.query(queryTemplate, sqlParams)
     .then((data) => {
       return data.rows[0];
-    }).catch(err => console.error(err.message));
+    })
+    .catch(err => console.error(err.message));
 
 };
 
@@ -35,7 +36,8 @@ const getQuizAttemptDataByQuizId = (quizId) => {
   return db.query(queryTemplate, sqlParams)
     .then((data) => {
       return data.rows[0];
-    });
+    })
+    .catch(err => console.error(err.message));
 
 };
 
@@ -54,7 +56,6 @@ const createAttempt = function(attempt) {
 
   return db.query(newAttemptTemplate, sqlParams)
     .then((res) => {
-      console.log('creat question query', res.rows[0]);
       return res.rows[0];
     })
     .catch(err => console.error(err.message));

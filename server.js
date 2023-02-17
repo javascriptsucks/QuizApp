@@ -49,8 +49,7 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
+
 const usersRoutes = require('./routes/users');
 const quizzesAPIroutes = require('./routes/quizzes-api');
 const quizzesRoutes = require('./routes/quizzes');
@@ -64,8 +63,7 @@ const quizAttemptRoutes = require('./routes/quizAttempt');
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
+
 app.use('/users', usersRoutes);
 app.use('/api/quizzes', quizzesAPIroutes);
 app.use('/quizzes', quizzesRoutes);
@@ -90,28 +88,6 @@ app.get('/', (req, res) => {
   }
 
   return res.status(200).render('index');
-
-  // TRIAL CODE
-  // const user_id = req.session.user_id;
-  // console.log(user_id)
-  // let templateVars = {};
-  // if (user_id) {
-  //   userQueries.getUserByID(user_id)
-  //     .then(user => {
-
-  //       templateVars = { user };
-
-  //       console.log('templateVars:', templateVars);
-  //       return res.render('index', templateVars);
-  //     })
-  //     .catch(err => {
-  //       console.log(err.message);
-  //     });
-
-  // } else {
-  //   return res.render('index', templateVars);
-  // }
-
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +98,6 @@ app.all('*', (req, res) => {
   const templateVars = {errorMsg: '404 This is not the web page you are looking for'};
   res.status(404).render('errorhandle', templateVars);
 });
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //               SERVER LISTENER

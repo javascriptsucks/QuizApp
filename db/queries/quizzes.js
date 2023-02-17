@@ -75,9 +75,9 @@ const updateQuizByObj = function(quiz) {
     RETURNING *
   ;
   `;
-  const {title, description, isPublic, numOfQuestions, id } = quiz;
+  const { title, description, isPublic, numOfQuestions, id } = quiz;
 
-  const sqlParams = [title, description, isPublic, numOfQuestions, id ];
+  const sqlParams = [title, description, isPublic, numOfQuestions, id];
 
   return db.query(queryTemplate, sqlParams)
     .then((res) => res.rows[0])
@@ -86,4 +86,4 @@ const updateQuizByObj = function(quiz) {
 
 
 
-module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, updateQuizByObj};
+module.exports = { getPublicQuizzes, getQuizzesQuestionsById, createNewQuizzes, updateQuizByObj };

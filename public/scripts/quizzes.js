@@ -16,13 +16,26 @@ $(() => {
   }
 
 
-  ///////////////////////////////////////////////////////////////////////
-  // EVENT LISTENER FOR COPY LINK BUTTONS - HOME PAGE/MY QUIZZES PAGE
-  ///////////////////////////////////////////////////////////////////////
-
   // HIDE COPY POP-UP MESSAGE ON LOAD
   $('.copy-message-quizzes').hide();
+  copyLinkHomePage();
 
+
+  // HIDE COPY POP-UP MESSAGE ON LOAD
+  $('.copy-message-attempt').hide();
+  copyLinkAttmptPage();
+
+
+  renderUserQuizzesModal();
+
+
+});
+
+///////////////////////////////////////////////////////////////////////
+// EVENT LISTENER FOR COPY LINK BUTTONS - HOME PAGE/MY QUIZZES PAGE
+///////////////////////////////////////////////////////////////////////
+
+const copyLinkHomePage = function() {
   $('.copy-link-quizzes-btn').on('click', function(e) {
     e.preventDefault();
 
@@ -32,14 +45,13 @@ $(() => {
     navigator.clipboard.writeText($(this).siblings('.hidden-link-quizzes').html());
     $(this).siblings('.copy-message-quizzes').fadeIn(300);
   });
+};
 
-  ///////////////////////////////////////////////////////////////////////
-  // EVENT LISTENER FOR COPY LINK BUTTON - QUIZ ATTEMPT PAGE
-  ///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// EVENT LISTENER FOR COPY LINK BUTTON - QUIZ ATTEMPT PAGE
+///////////////////////////////////////////////////////////////////////
 
-  // HIDE COPY POP-UP MESSAGE ON LOAD
-  $('.copy-message-attempt').hide();
-
+const copyLinkAttmptPage = function() {
   $('.copy-link-attempt-btn').on('click', function(e) {
     e.preventDefault();
 
@@ -47,12 +59,14 @@ $(() => {
     navigator.clipboard.writeText($(this).siblings('.hidden-link-attempt').html());
     $(this).siblings('.copy-message-attempt').fadeIn(300);
   });
+};
 
 
-  ///////////////////////////////////////////////////////////////////////
-  // EVENT LISTENER FOR MY QUIZZES - MODAL WINDOW
-  ///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// EVENT LISTENER FOR MY QUIZZES - MODAL WINDOW
+///////////////////////////////////////////////////////////////////////
 
+const renderUserQuizzesModal = function() {
   $('.quiz-data-modal-btn').on('click', function(e) {
     e.preventDefault();
 
@@ -83,12 +97,7 @@ $(() => {
       });
 
   });
-
-
-});
-
-
-
+};
 
 
 // USER INPUT ESCAPE
@@ -97,6 +106,7 @@ const escapeFnc = function(str) {
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
+
 
 
 const getQusByIdAndRender = function(quizId) {

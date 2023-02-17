@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
       const attempt = { quizId, userId, score };
       quizAttemptsQueries.createAttempt(attempt)
         .then(response => {
-          res.redirect(`/quizAttempt/${response.id}`);
+          return res.redirect(`/quizAttempt/${response.id}`);
         });
     });
 
