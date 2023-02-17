@@ -77,8 +77,6 @@ const renderUserQuizzesModal = function() {
 
     $.get(`http://localhost:8080/api/quizzes/data/${quizID}`, function(quizData) {
 
-      console.log(quizData);
-
       $('.quiz-data-modal-title').html(`Data for ${quizData.quiz_title.toUpperCase()} Quiz`);
 
       $('.quiz-data-modal-body')
