@@ -148,8 +148,7 @@ router.get('/:user_id', (req, res) => {
       };
 
       res.render('quizzes_user', templateVars);
-    })
-  ;
+    });
 });
 
 module.exports = router;

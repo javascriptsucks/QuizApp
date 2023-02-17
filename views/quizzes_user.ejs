@@ -1,45 +1,82 @@
 <%- include('partials/_header') %>
 
   <main class="flex-fill">
-    <span id="quizzes-user-title">
-      <h1>My Quizzes</h1>
-      <p>See all the quizzes you've created.</p>
-    </span>
 
-    <div class="list-group w-75 mx-auto mt-5">
-
-      <% for (let i=0; i < quizzes.length; i++) { %>
-
-        <div class="card text-center mt-2 mb-2">
-          <div class="card-header">
-            Created by: <%= quizzes[i].creator %>
+    <!-- Vertically centered modal -->
+    <div class="quiz-data-modal modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="quiz-data-modal-content modal-content">
+          <div class="quiz-data-modal-header modal-header">
+            <h5 class="quiz-data-modal-title">Quiz Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">
-              <%= quizzes[i].title.toUpperCase() %> Quiz
-            </h5>
-            <p class="card-text">
-              <%= quizzes[i].description %>
-            </p>
-            <a href="/quizzes/update/<%= quizzes[i].id %>" class="btn btn-primary">Edit This Quiz!</a>
+          <div class="quiz-data-modal-body modal-body">
+            <h2></h2>
           </div>
-          <div class="card-footer text-muted">
-            <span>
-              <p hidden class="hidden-link-quizzes">localhost:8080/quizzes/<%= quizzes[i].id %>
-              </p>
-              <button class="copy-link-quizzes-btn btn btn-primary">Copy Link</button>
-              <span class="copy-message-quizzes">Copied!</span>
-            </span>
-            <span>
-              <% if (quizzes[i].is_public===false ) { %>
-                (Private)
-                <% } %>
-                  Quiz with <%= quizzes[i].num_of_questions %> quesitons
-            </span>
+          <div class="quiz-data-modal-footer modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <% } %>
+    <div id="quizzes-user-title">
+      <h1>My Quizzes</h1>
+      <p>See all the quizzes you've created.</p>
+    </div>
+
+    <div class="quizzes-user-container list-group w-75 mx-auto mt-5 hidden">
+
+      <% if (quizzes.length===0) { %>
+        <span id="user-no-quiz-msg">
+          <h1>You haven't made any quizzes yet!</h1>
+          <h5>Go to the Create A Quiz tab to make a new quiz.</h5>
+        </span>
+        <% } else { %>
+
+          <% for (let i=0; i < quizzes.length; i++) { %>
+
+            <div class="card text-center mt-2 mb-2">
+              <div class="card-header">
+                <span>Created by: <%= quizzes[i].creator %></span>
+                <span>
+                  <% if (quizzes[i].is_public===false ) { %>
+                    (Private)
+                    <% } %>
+                      Quiz with <%= quizzes[i].num_of_questions %> quesitons
+                </span>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= quizzes[i].title.toUpperCase() %> Quiz
+                </h5>
+                <p class="card-text">
+                  <%= quizzes[i].description %>
+                </p>
+                <a href="/quizzes/update/<%= quizzes[i].id %>" class="action-btn btn btn-primary">Edit This Quiz!</a>
+              </div>
+              <div class="card-footer text-muted">
+
+                <span>
+                  <p hidden class="hidden-link-quizzes">localhost:8080/quizzes/<%= quizzes[i].id %>
+                  </p>
+                  <button class="copy-link-quizzes-btn btn btn-primary">Copy Link</button>
+                  <span class="copy-message-quizzes">Copied!</span>
+                </span>
+                <span>
+                  <p hidden class="hidden-quizID">
+                    <%= quizzes[i].id %>
+                  </p>
+                  <a href="#" data-toggle="modal" data-target=".quiz-data-modal"
+                    class="quiz-data-modal-btn btn btn-primary">View Quiz Data</a>
+                </span>
+              </div>
+            </div>
+
+            <% } %>
+              <% } %>
 
     </div>
 

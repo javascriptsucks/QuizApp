@@ -1,7 +1,64 @@
 <%- include('partials/_header') %>
 
+  <!-- REGISTER MODAL WINDOW -->
+  <div class="register-modal modal fade" tabindex="-1">
+    <div class="-register-modal-dialog modal-dialog">
+      <div class="register-modal-content modal-content">
+        <div class="register-modal-header modal-header">
+          <h3 class="register-modal-title modal-title">Enter Your Info To Register!</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="register-modal-body modal-body">
 
-  <main class="index-page flex-fill">
+          <div class="w-50 mt-5 mx-auto text-center">
+            <form id="register-modal-form" action="/users/register" method="POST">
+
+              <input type="text" name="name" class="form-control mb-2" placeholder="Account name" autofocus="">
+              <input type="email" name="email" class="form-control mb-2" placeholder="Email address" autofocus="">
+              <input type="password" name="password" class="form-control mb-2" placeholder="Password">
+              <input type="password" name="passwordConfirm" class="form-control mb-5" placeholder="Password Confirm">
+              <button class="btn btn-lg w-50 mx-auto btn-primary btn-block" type="submit">Sign Up! </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="register-modal-footer modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL WINDOW -->
+  <div class="login-modal modal fade" tabindex="-1">
+    <div class="-login-modal-dialog modal-dialog">
+      <div class="login-modal-content modal-content">
+        <div class="login-modal-header modal-header">
+          <h3 class="login-modal-title modal-title">Enter Your Login Info!</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="login-modal-body modal-body">
+          <div class="w-50 mt-5 mx-auto text-center">
+            <form id="login-modal-form" class="form-inline my-2 my-lg-0" action="/users/login" method="POST">
+              <input class="form-control mb-2" type="email" name="emailLogin" placeholder="Your Email">
+              <input class="form-control mb-5" type="password" name="passwordLogin" placeholder="Your Password">
+              <button class="btn btn-lg w-50 mx-auto btn-primary btn-block" type="submit">Sign In</button>
+            </form>
+          </div>
+        </div>
+        <div class="login-modal-footer modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="hidden index-page flex-fill">
     <div class="jumbotron w-75 mt-5 mx-auto">
       <h1 class="display-4">Welcome to QuizApp!</h1>
       <p class="lead">A multi-page web application that allows you to view and attempt quizzes created by other users.
@@ -9,8 +66,10 @@
       <hr class="my-4">
       <p>Want to give it a try? Register a new account OR log in below and let the fun begin!</p>
       <div id="home-page-button-container">
-        <a class="btn btn-primary btn-lg" href="/users/register" role="button">Register A New Account</a>
-        <a class="btn btn-primary btn-lg" href="/users/login" role="button">Log In Existing User</a>
+        <a href="#" data-toggle="modal" data-target=".register-modal"
+          class="register-modal-btn btn btn-primary">Register As New User</a>
+        <a href="#" data-toggle="modal" data-target=".login-modal" class="login-modal-btn btn btn-primary">Log In
+          Existing User</a>
       </div>
     </div>
   </main>

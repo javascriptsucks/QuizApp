@@ -5,6 +5,26 @@ html {
   margin: 0;
 }
 
+// @media only screen and (min-width: 1024px) {
+//   .quizzes-all-container {
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: space-evenly;
+//   }
+
+//   .quizzes-all-container .card {
+//     height: 350px;
+//     width: 300px;
+//     margin-right: 0.7em;
+//     margin-left: 0.7em;
+//   }
+// }
+
+main {
+  padding-top: 100px;
+}
+
 #home-page-button-container {
   width: 80%;
   margin-top: 2em;
@@ -14,12 +34,15 @@ html {
 }
 
 #quizzes-all-title {
+  font-size: 1.3em;
   text-align: center;
 }
 
 #quizzes-user-title {
+  font-size: 1.3em;
   text-align: center;
 }
+
 
 #quizzes-show-main {
   margin: 3em;
@@ -47,8 +70,34 @@ html {
   align-items: center;
 }
 
-.card-footer {
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+
+.quizzes-all-container .card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quizzes-user-container .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#login-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-modal-form .form-control {
+  margin-bottom: 0.5em;
+}
+
+#user-no-quiz-msg {
+  text-align: center;
 }

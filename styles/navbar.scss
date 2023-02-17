@@ -1,9 +1,14 @@
 .navbar {
-  height: 80px;
+  height: 100px;
+  z-index: 1;
+  position: fixed;
+  width: 100%;
   background-color: #922C40;
 }
 
 .navbar-brand {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   font-size: 2em;
   font-family: 'Alfa Slab One', cursive;
 }
@@ -21,5 +26,3 @@
   font-size: 1.2em;
   color: whitesmoke;
 }
-
-

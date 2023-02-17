@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 
-
+// GET ONE QUIZ ATTEMPT BY ATTEMPT ID
 const getQuizAttemptById = (quizAttemptId) => {
   const queryTemplate = `
     SELECT quiz_attempts.*, users.name as name, quizzes.title as quiz_title, quizzes.num_of_questions as num_of_questions
@@ -17,6 +17,25 @@ const getQuizAttemptById = (quizAttemptId) => {
     .then((data) => {
       return data.rows[0];
     }).catch(err => console.error(err.message));
+
+};
+
+// GET QUIZ DATA BY QUIZ ID
+const getQuizAttemptDataByQuizId = (quizId) => {
+  const queryTemplate = `
+    SELECT quiz_id, COUNT(quiz_attempts.*) as num_of_attempts, ROUND(AVG(score), 2) as average_score, quizzes.title as quiz_title
+    FROM quiz_attempts
+    JOIN quizzes on quiz_id = quizzes.id
+    WHERE quiz_id = $1
+    GROUP BY quiz_attempts.quiz_id, quiz_title
+    ;
+  `;
+  const sqlParams = [quizId];
+
+  return db.query(queryTemplate, sqlParams)
+    .then((data) => {
+      return data.rows[0];
+    });
 
 };
 
@@ -41,4 +60,4 @@ const createAttempt = function(attempt) {
     .catch(err => console.error(err.message));
 };
 
-module.exports = { createAttempt, getQuizAttemptById };
+module.exports = { createAttempt, getQuizAttemptById, getQuizAttemptDataByQuizId };

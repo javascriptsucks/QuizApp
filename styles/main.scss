@@ -23,6 +23,11 @@ body {
   background-color: #1E2640;
 }
 
+.action-btn {
+  color: #1E2640;
+  background-color: #DC9750;
+}
+
 .list-group .card {
   background: transparent;
   border: 2px solid #1E2640;
@@ -30,7 +35,7 @@ body {
 
 .list-group .card:hover {
   box-shadow: 7px 7px 7px #1E2640;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .index-page .jumbotron {
@@ -45,7 +50,7 @@ body {
 }
 
 .quiz-attempt-page .jumbotron {
-  background-color: transparent;
+  background-color: #DC9750;
   border: 3px solid #1E2640;
   box-shadow: 7px 7px 7px #1E2640;
 
@@ -77,4 +82,41 @@ body {
 .copy-link-attempt-btn {
   margin-bottom: 0.3em;
   width: 40%;
+}
+
+.quiz-data-modal-content {
+  background-color: #E9DAC4;
+  border: 3px solid #1E2640;
+}
+
+.quiz-data-modal-header {
+  background-color: #DC9750;
+  border-bottom: 3px solid #1E2640;
+}
+
+.register-modal-content {
+  background-color: #E9DAC4;
+  border: 3px solid #1E2640;
+}
+
+.register-modal-header {
+  background-color: #DC9750;
+  border-bottom: 3px solid #1E2640;
+  text-align: center;
+}
+
+.login-modal-content {
+  background-color: #E9DAC4;
+  border: 3px solid #1E2640;
+}
+
+.login-modal-header {
+  background-color: #DC9750;
+  border-bottom: 3px solid #1E2640;
+  text-align: center;
+}
+
+
+.hidden {
+  display: none;
 }
