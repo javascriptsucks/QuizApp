@@ -1,14 +1,14 @@
 <%- include('partials/_header') %>
 
-  <main id="quizzes-show-main" class="flex-fill">
-    <span id="quizzes-show-title">
+  <main id="quizzes-show-main" class="hidden flex-fill">
+    <div id="quizzes-show-title">
       <h1>
         <%= questions[0].title.toUpperCase() %> Quiz
       </h1>
-      <h3>
+      <h5>
         Created By: <%= questions[0].creator %>
-      </h3>
-    </span>
+      </h5>
+    </div>
 
     <form id="quizzes-show-form" action="/quizattempt/" method="POST">
 
@@ -30,7 +30,7 @@
 
           <input name="quiz_id" type="hidden" value="<%= questions[0].quiz_id %>">
 
-          <button type="submit" class="btn btn-primary">Submit Answers</button>
+          <button type="submit" class="action-btn btn btn-primary">Submit Answers</button>
     </form>
 
   </main>
