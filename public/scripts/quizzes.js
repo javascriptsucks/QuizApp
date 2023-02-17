@@ -135,7 +135,7 @@ const getQusByIdAndRender = function(quizId) {
             <h4><u>Fill Out Questions Here:</u></h4>
           </span>
           ${loopInput}
-          <button type="submit" class="btn btn-primary">Submit New Quiz</button>
+          <button type="submit" class="action-btn btn btn-primary">Submit New Quiz</button>
     `;
       $('#new-quiz-content').removeAttr('style').empty().append(renderInput).stop().slideDown();
 

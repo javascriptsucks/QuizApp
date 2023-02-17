@@ -25,10 +25,16 @@
   border-bottom: 1px solid #1E2640;
 }
 
+#new-quiz-content form {
+  display: flex;
+  align-items: center;
+}
+
 #new-quiz-content .btn {
   margin-top: 1em;
-  width: 100%;
-  height: 3em;
+  margin-left: 290px;
+  width: 23%;
+  height: 60px;
 }
 
 .none {

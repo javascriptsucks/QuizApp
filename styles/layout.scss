@@ -49,10 +49,9 @@ main {
 }
 
 #quizzes-show-title {
-  padding-bottom: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-size: 1.3em;
+  text-align: center;
+  margin-bottom: 2.5em;
 }
 
 #quizzes-show-form {
@@ -61,8 +60,7 @@ main {
 }
 
 .quizzes-show-questions {
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
+  padding: 1.5em;
   border: 2px solid black;
   border-radius: 7px;
   display: flex;
